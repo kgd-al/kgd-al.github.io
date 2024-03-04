@@ -21,16 +21,29 @@
 title: Kevin Godin-Dubois
 email: k.j.m.godin-dubois@vu.nl
 description: >- # this means to ignore newlines until "baseurl:"
-  Personal website for centralized access to all resources
+  Artificial Life Research (Evolution, NeuroEvolution, Cognition)
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: jekyllrb
-github_username:  jekyll
+github_username:  kgd-al
+
+author:
+  name: Kevin Godin-Dubois
+  email: k.j.m.godin-dubois@vu.nl
+
+github: [metadata]
 
 # Build settings
-theme: minima
+remote_theme: jekyll/minima
 plugins:
   - jekyll-feed
+  - jekyll-remote-theme
+
+minima:
+  skin: dark
+
+kramdown:
+  hard_wrap: false
+
 
 # Exclude from processing.
 # The following items will not be processed, by default.

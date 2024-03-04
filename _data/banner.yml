@@ -1,0 +1,24 @@
+- src: /resources/banner/apoget.gif
+  name: Phylogeny
+  desc: Phylogeny
+  date: 2019-07
+
+- src: /resources/banner/splinoids.gif
+  name: Splinoids
+  desc: Collaboration & Competition
+  date: 2022-07
+
+- src: /resources/banner/ann.gif
+  name: ABrain
+  desc: Artificial Neural Networks
+  date: 2023-01
+
+- src: /resources/banner/revolve.gif
+  name: Robots
+  desc: Evolutionary Robotics
+  date: 2023-05
+
+- src: /resources/banner/amaze.gif
+  name: AMaze
+  desc: Reinforcement Learning
+  date: 2024-05
