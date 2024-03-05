@@ -19,7 +19,7 @@ permalink: /research/
 
 {% if page %}
 <p>
-{{desc[2]}}
+{{desc[0]}}
 <br />
 <a href="{{page.url}}">Read more</a>
 </p>

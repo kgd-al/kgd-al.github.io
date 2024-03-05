@@ -19,8 +19,8 @@ process(){
 
     _find $1 -type f | while read file
     do
-        link=$(grep permalink $file | cut -d ' ' -f 2-)
-        [ -z $link ] && link=$(sed 's/md/html/' <<< $file)
+        link=$(grep -qs permalink $file | cut -d ' ' -f 2- || test $? = 1)
+        [ -z $link ] && link=/$(sed 's/md/html/' <<< $file)
 
         echo "$indent[F] $file"
         echo "$indent- name: $(grep title $file | cut -d ' ' -f2)" >> $out

@@ -1,0 +1,98 @@
+% Generic commands
+\usepackage{draftcommands}
+
+% Font encodings
+\usepackage[T1]{fontenc}
+
+% Sets margins
+\usepackage[lmargin=1in,rmargin=1in,bmargin=1in,tmargin=.75in]{geometry}
+
+% For hyperlinks, as usual
+\usepackage{hyperref}
+
+% The list of publications (with links)
+\usepackage[backend=biber,maxcitenames=1,doi=true,url=true,sorting=ydnt,giveninits=true,defernumbers=true]{biblatex}
+\addbibresource{cv.bib}
+
+% Only use url if doi is not present
+\DeclareSourcemap{
+  \maps[datatype=bibtex]{
+    \map[overwrite]{
+      \step[fieldsource=doi, final]
+      \step[fieldset=url, null]
+      \step[fieldset=eprint, null]
+    }  
+  }
+}
+
+% Multiple language
+
+% \providecommand{\kgdlang}{french}
+\providecommand{\kgdlang}{english}
+\usepackage[french,english,main=\kgdlang]{babel}
+\usepackage{csquotes}
+\usepackage{iflang}
+
+\def\En#1{#1}
+\def\Fr#1{}
+\IfLanguageName{french}{%
+ \def\En#1{}\def\Fr#1{#1}
+ \usepackage[T1]{fontenc}
+}{}
+
+\def\publipending{
+  \En{Pending publication}%
+  \Fr{Publication en cours}}
+
+\def\publijournal{
+  \En{International Journal}%
+  \Fr{Journaux Internationaux}%
+  \ (peer-reviewed)}
+  
+\def\publiconference{
+  \En{International conferences}%
+  \Fr{Conf\'erences Internationales}%
+  \ (peer-reviewed)}
+  
+\def\publiworkshop{
+  \En{Workshops}%
+  \Fr{Workshops}}
+
+\def\publiposter{
+  \En{Poster}%
+  \Fr{Poster}}
+
+\def\publioral{
+  \En{Oral presentations}%
+  \Fr{Pr\'esentations orales}}
+
+\def\publithesis{
+  \En{Thesis}%
+  \Fr{Th\`ese}}
+  
+\def\publiclasses{
+ journal/\publijournal,
+ conference/\publiconference,
+ workshop/\publiworkshop,
+ poster/\publiposter,
+ talk/\publioral,
+ thesis/\publithesis
+}
+
+% Classification CNU 27
+% Ouvrages
+% Conférences invitées internationales
+% Conférences invitées nationales
+% Revues internationales avec comité de lecture
+% Revues nationales avec comité de lecture
+% Chapitres de livre avec comité de lecture
+% Direction d’ouvrages, de revues, actes
+% Conférences internationales avec comité de lecture
+% Conférences nationales avec comité de lecture
+% Workshops/ateliers internationaux avec comité de lecture
+% Workshops/ateliers nationaux avec comité de lecture
+% Séminaires invités
+% Démonstrations
+% Conférences sans comité de lecture
+% Brevets, productions logicielles, mise à disposition de données.
+% Autres (rapports, expertises, etc)
