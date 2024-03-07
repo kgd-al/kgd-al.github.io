@@ -101,60 +101,60 @@ then
     exit 2
   fi
 fi
-#
-# for l in misc/academicons_rgate misc/academicons_gscholar
-# do
-#   if [ ! -f $l.pdf ]
-#   then
-#     cd $(dirname $l)
-#     lualatex $(basename $l).tex
-#     cd $wd
-#     printf "\033[32mCompiled misc file $l\033[0m\n\n"
-#   fi
-# done
-#
-# lg=${lang:0:2}
-# echo "Compiling for '$lang' [$lg] language"
-# echo
-#
-# for f in {cv,publications}
-# do
-#   pdfcompile $f
-#   biber --quiet $f 2>&1
-#   pdfcompile $f
-#   pdfcompile $f
-#
-#   echo
-#   o=${f}_${lg}.pdf
-#   mv -v $f.pdf $o
-#
-#   if [ "$lg" == "en" ]
-#   then
-#     o_=$o
-#     o=../download/$f.pdf
-#     mv -v $o_ $o
-#   fi
-#
-#   if [ -f $o ]
-#   then
-#     printf "\033[32mCompiled file $f\033[0m\n\n"
-#   else
-#     printf "\033[31mFailed to compile file $f\033[0m\n\n"
-#   fi
-# done
-#
-# bibfilesize=$(grep "entrysubtype" cv.bib | wc -l)
-# bibliosize=$(grep 'defaultrefcontext' cv.aux | wc -l)
-# if [ $bibfilesize -ne $bibliosize ]
-# then
-#   printf "\033[33mMismatched bibliography: found %d pieces of work but only %d were cited\033[0m\n" $bibfilesize $bibliosize
-#   (
-#     echo "cv.bib cv.aux"
-#     diff -y \
-#       <(sed -n "s/^@.*{\([A-Za-z]*Dubois.*\),/\1/p" cv.bib | sort) \
-#       <(sed -n 's/.*defaultrefcontext{0}{\([^}]*\)}.*/\1/p' cv.aux | sort)
-#   ) | column -t
-# fi
+
+for l in misc/academicons_rgate misc/academicons_gscholar
+do
+  if [ ! -f $l.pdf ]
+  then
+    cd $(dirname $l)
+    lualatex $(basename $l).tex
+    cd $wd
+    printf "\033[32mCompiled misc file $l\033[0m\n\n"
+  fi
+done
+
+lg=${lang:0:2}
+echo "Compiling for '$lang' [$lg] language"
+echo
+
+for f in {cv,publications}
+do
+  pdfcompile $f
+  biber --quiet $f 2>&1
+  pdfcompile $f
+  pdfcompile $f
+
+  echo
+  o=${f}_${lg}.pdf
+  mv -v $f.pdf $o
+
+  if [ "$lg" == "en" ]
+  then
+    o_=$o
+    o=../download/$f.pdf
+    mv -v $o_ $o
+  fi
+
+  if [ -f $o ]
+  then
+    printf "\033[32mCompiled file $f\033[0m\n\n"
+  else
+    printf "\033[31mFailed to compile file $f\033[0m\n\n"
+  fi
+done
+
+bibfilesize=$(grep "entrysubtype" cv.bib | wc -l)
+bibliosize=$(grep 'defaultrefcontext' cv.aux | wc -l)
+if [ $bibfilesize -ne $bibliosize ]
+then
+  printf "\033[33mMismatched bibliography: found %d pieces of work but only %d were cited\033[0m\n" $bibfilesize $bibliosize
+  (
+    echo "cv.bib cv.aux"
+    diff -y \
+      <(sed -n "s/^@.*{\([A-Za-z]*Dubois.*\),/\1/p" cv.bib | sort) \
+      <(sed -n 's/.*defaultrefcontext{0}{\([^}]*\)}.*/\1/p' cv.aux | sort)
+  ) | column -t
+fi
 
 
 target=$(find .. -type d -wholename "*/src/$outdir")
