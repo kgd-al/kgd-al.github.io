@@ -12,6 +12,10 @@ _find(){
     | sort -g | cut -d ' ' -f 2-
 }
 
+_grep() { grep $@ || test $? = 1; }
+_field() { _grep $@ | cut -d ' ' -f 2-; }
+
+
 process(){
     local folder=$1
     local depth=$2
@@ -19,11 +23,24 @@ process(){
 
     _find $1 -type f | while read file
     do
-        link=$(grep -qs permalink $file | cut -d ' ' -f 2- || test $? = 1)
+        include=$(_field navigation $file)
+        if [ "$include" == "false" ]
+        then
+            continue
+        fi
+
+        link=$(_field permalink $file)
         [ -z $link ] && link=/$(sed 's/md/html/' <<< $file)
 
+        name=$(_field title $file)
+        if [ -z "$name" ]
+        then
+            echo "No title for $file"
+            exit 1
+        fi
+
         echo "$indent[F] $file"
-        echo "$indent- name: $(grep title $file | cut -d ' ' -f2)" >> $out
+        echo "$indent- name: $name" >> $out
         echo "$indent  link: $link" >> $out
         echo >> $out
 
