@@ -7,9 +7,8 @@ permalink: /publications/
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<i class="fa fa-file-pdf-o"></i>
-<i class="fa fa-heart"></i>
-
-
+<i class="fa fa-download"></i>
+<i class="fa fa-external-link"></i>
+<i class="fa fa-external-link" aria-hidden="true"></i>
 
 {% include_relative __generated/publications.html %}

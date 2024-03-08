@@ -37,6 +37,7 @@ remote_theme: jekyll/minima
 plugins:
   - jekyll-feed
   - jekyll-remote-theme
+  - jekyll-seo-tag
 
 minima:
   skin: dark
