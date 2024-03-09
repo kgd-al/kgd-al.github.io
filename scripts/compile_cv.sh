@@ -112,10 +112,10 @@ then
   fi
   if [ $r -eq 0 ]
   then
-    echo "Extracted publications from $library"
+    printf "\033[32mExtracted publications from $library\033[0m"
     echo
   else
-    echo "Failed to extract publications from $library"
+    echo "\033[31mFailed to extract publications from $library\033[0m"
     exit 2
   fi
 fi
@@ -175,12 +175,14 @@ then
         <(sed -n 's/.*defaultrefcontext{0}{\([^}]*\)}.*/\1/p' cv.aux | sort)
     ) | column -t
   fi
+else
+  printf "\033[35mSkipping cv/publications compilation\033[0m\n"
 fi
 
 local="<i class='fa fa-download'></i>"
 remote="<i class='fa fa-external-link'></i>"
 target=$(find .. -type d -wholename "*/src/$outdir")
-bibtex2html -q --nodoc -nf local "$local" -o $target/publications cv.bib
+bibtex2html -q --nodoc -nf local "$local" -note entrysubtype -revkeys -o $target/publications cv.bib
 sed -i -e "s|../src/$outdir/publications_bib.html|/publications/bib|" \
     -e "s|>.pdf</|>$remote</|" \
     $target/publications.html

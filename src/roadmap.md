@@ -6,16 +6,23 @@ permalink: /roadmap/
 ---
 
 Todolist:
- - Make a nice banner
- - Provide a summary on the front page
- - Research page
- - Teaching page?
- - Positions page?
- - Publications
- - upload pdfs
+- [x] Make a nice banner
+- [ ] Provide a summary on the front page
+- [ ] Research page:
+   - [ ] Evolution
+   - [ ] Splinoids
+   - [ ] NeuroEvolution
+   - [ ] Revolve
+   - [ ] Reinforcement learning
+- [ ] Post for amaze upload
+- [ ] Post for abrain v1.1
+- [ ] Teaching page?
+- [ ] Positions page?
+- [X] Publications
+- [X] upload pdfs
 
- - Banner:
-    - neuroevolution (timelapse of ann lineage)
-    - VfMRI (activation patterns of ann)
-    - Reus world (APOGeT)
-    - Mortal kombat
+- [ ]  Banner:
+   - [ ]  neuroevolution (timelapse of ann lineage)
+   - [ ]  VfMRI (activation patterns of ann)
+   - [X]  Reus world (APOGeT)
+   - [X]  Mortal kombat

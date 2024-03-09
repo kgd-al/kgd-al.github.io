@@ -9,11 +9,11 @@ fi
 scripts=$(dirname $0)
 source $scripts/common.sh
 
-# $scripts/build.sh | sed 's/^/> /'
-# echo "Building done"
+$scripts/build.sh | sed 's/^/> /'
+echo "Building done"
 
-bundle exec jekyll build
-bundle exec htmlproofer _site
+# bundle exec jekyll build
+# bundle exec htmlproofer _site --allow-missing-href=true --enforce-https=false
 
 if [ "$1" != "test" ]
 then

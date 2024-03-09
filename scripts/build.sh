@@ -10,4 +10,5 @@ echo "Building navigation"
 $scripts/auto_navigation.sh >> $log
 
 echo "Building cv"
-$scripts/compile_cv.sh -c -a | tee -a $log | grep -i --color=never "Compil\|Gener" | sed 's/^/> /'
+$scripts/compile_cv.sh -c -a -e default -f \
+    | tee -a $log | grep --color=never $'\e' | sed 's/^/> /'
