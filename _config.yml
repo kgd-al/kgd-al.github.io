@@ -38,8 +38,17 @@ plugins:
   - jekyll-remote-theme
   - jekyll-seo-tag
 
+show_excerpts: true
+
 minima:
-  skin: dark
+  skin: auto
+  social_links:
+    - platform: github
+      user_url: "https://github.com/kgd-al"
+    - platform: google_scholar
+      user_url: "https://scholar.google.com/citations?user=8k1MH20AAAAJ"
+    - platform: youtube
+      user_url: "????"
 
 kramdown:
   hard_wrap: false

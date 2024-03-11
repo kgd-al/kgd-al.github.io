@@ -181,13 +181,13 @@ fi
 
 local="<i class='fa fa-download'></i>"
 remote="<i class='fa fa-external-link'></i>"
-target=$(find .. -type d -wholename "*/src/$outdir")
+target=$(find .. -type d -wholename "*/$sources/$autogen")
 bibtex2html -q --nodoc -nf local "$local" -note entrysubtype -revkeys -o $target/publications cv.bib
-sed -i -e "s|../src/$outdir/publications_bib.html|/publications/bib|" \
+sed -i -e "s|../$sources/$autogen/publications_bib.html|/publications/bib|" \
     -e "s|>.pdf</|>$remote</|" \
     $target/publications.html
 sed -e 's/@comment.*//' \
-    -e "s|../src/$outdir/publications.html|/publications/|" \
+    -e "s|../$sources/$autogen/publications.html|/publications/|" \
     -e 's|<h1>.*</h1>||' \
     $target/publications_bib.html \
   | awk 'NR==1{print "<div markdown=0>"};1;END{print "</div>"}' \

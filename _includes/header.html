@@ -10,7 +10,7 @@
       <div><center>
         {%- assign width = 100 | divided_by: banner_items.size | divided_by: 1.05 | at_most: 20 -%}
         {%- for item in banner_items -%}
-          <a href="/src/research/{{item.name | downcase}}.html"><img src="{{site.baseurl}}{{item.src}}" alt="{{item.src}}" width="{{width}}%" title="{{item.desc}}"/></a>
+          <a href="/md/research/{{item.name | downcase}}.html"><img src="{{site.baseurl}}{{item.src}}" alt="{{item.src}}" width="{{width}}%" title="{{item.desc}}"/></a>
         {%- endfor -%}
       </center></div>
     {% endif %}

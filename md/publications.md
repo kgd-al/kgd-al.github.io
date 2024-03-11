@@ -7,4 +7,6 @@ permalink: /publications/
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+Download <a href="{{ site.url }}/download/cv.pdf">pdf</a> version
+
 {% include_relative __generated/publications.html %}

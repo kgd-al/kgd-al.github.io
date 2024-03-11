@@ -12,8 +12,10 @@ source $scripts/common.sh
 $scripts/build.sh | sed 's/^/> /'
 echo "Building done"
 
-# bundle exec jekyll build
-# bundle exec htmlproofer _site --allow-missing-href=true --enforce-https=false
+bundle exec jekyll build
+bundle exec htmlproofer _site \
+    --allow-missing-href=true --enforce-https=false \
+    --ignore-urls "/.*10.13140/RG\..*/"
 
 if [ "$1" != "test" ]
 then

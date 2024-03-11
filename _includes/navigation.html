@@ -1,34 +1,72 @@
-<nav id="navigation_path">
-    <style>
-.dropdown-item {
-  background-color: var(--background);
+<style>
+
+/* The main container */
+.nav-div {
+  background-color: var(--minima-code-background-color);
+  line-height: 1;
+}
+
+/* The horizontal root-menu list */
+.horizontal-nav-ul {
+/*   position: relative; */
+  display: inline-block;
+  list-style-type: none;
+  margin: 4px;
+  padding: 0;
+  overflow: hidden;
+/*   background-color: #333333; */
+}
+
+/* A root menu item */
+.horizontal-nav-ul li {
+  display: inline;
   padding: 4px;
   font-size: 16px;
   border: none;
 }
 
-/* The container <div> - needed to position the dropdown content */
-.dropdown {
-  position: relative;
-  display: inline-block;
+/* A menu item */
+.horizontal-nav-ul button {
+  background-color: none;
+/*   display: inline; */
+/*   padding: 4px; */
+  min-width: 50px;
+  font-size: 16px;
+  border: none;
 }
 
 /* Dropdown Content (Hidden by Default) */
-.dropdown-menu {
-  display: none;
+.vertical-nav-ul {
+/*   display: none; */
   position: absolute;
   z-index: 1;
+/*   float: left; */
 }
 
-/* Links inside the dropdown */
-.dropdown-menu a {
+/* A root menu item */
+.vertical-nav-ul li {
   display: block;
+  padding: 4px;
+  font-size: 16px;
+  border: none;
+}
+
+/* A menu item */
+.vertical-nav-ul button {
+  background-color: none;
+/*   display: inline; */
+/*   padding: 4px; */
+  min-width: 50px;
+  font-size: 16px;
+  border: none;
 }
 
 /* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-menu {display: block;}
-    </style>
-    <div class="dropdown">
-        {%- include navigation_path.html menu=site.data.__generated.navigation -%}
-    </div>
-</nav>
+.horizontal-nav-ul:hover .vertical-nav-ul {display: block;}
+
+</style>
+<div class="nav-div">
+  <ul class="horizontal-nav-ul">
+    {%- include navigation_path.html menu=site.data.__generated.navigation -%}
+  </ul>
+</div>

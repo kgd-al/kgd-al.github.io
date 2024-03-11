@@ -1,0 +1,19 @@
+---
+---
+/* Override theme defaults */
+//$content-width: 1080px; // Works but is ugly
+
+@import
+  "minima/skins/{{ site.minima.skin | default: 'auto' }}",
+  "minima/initialize";
+
+/* Put any custom CSS here */
+
+header {
+  font-family: $code-font-family;
+  font-size: $small-font-size;
+}
+
+p {
+  text-align: justify;
+}
