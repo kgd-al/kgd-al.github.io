@@ -8,7 +8,9 @@ permalink: /roadmap/
 
 Todolist:
 - [x] Make a nice banner
-- [ ] Provide a summary on the front page
+- [x] Provide a summary on the front page
+- [x] Software page
+- [ ] Positions page?
 - [ ] Research page:
    - [ ] Evolution
    - [ ] Splinoids
@@ -18,7 +20,6 @@ Todolist:
 - [ ] Post for amaze upload
 - [ ] Post for abrain v1.1
 - [ ] Teaching page?
-- [ ] Positions page?
 - [X] Publications
 - [X] upload pdfs
 
