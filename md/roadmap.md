@@ -17,9 +17,8 @@ Todolist:
    - [ ] NeuroEvolution
    - [ ] Revolve
    - [ ] Reinforcement learning
-- [ ] Post for amaze upload
+- [x] Post for amaze upload
 - [ ] Post for abrain v1.1
-- [ ] Teaching page?
 - [X] Publications
 - [X] upload pdfs
 
