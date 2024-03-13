@@ -1,0 +1,12 @@
+{%- for item in include.menu -%}
+    {%- if page.url == item.link -%}
+        {%- assign navigation_items = navigation_items | push: item -%}
+    {%- else -%}
+        {%- if navigation_items == empty -%}
+            {%- include navigation_find_path.html menu=item.submenu -%}
+            {%- if navigation_items != empty -%}
+                {%- assign navigation_items = navigation_items | push: item -%}
+            {%- endif -%}
+        {%- endif -%}
+    {%- endif -%}
+{%- endfor -%}
