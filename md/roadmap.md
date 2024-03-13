@@ -10,7 +10,7 @@ Todolist:
 - [x] Make a nice banner
 - [x] Provide a summary on the front page
 - [x] Software page
-- [ ] Positions page?
+- [x] Positions page
 - [ ] Research page:
    - [ ] Evolution
    - [ ] Splinoids

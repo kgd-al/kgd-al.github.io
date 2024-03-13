@@ -73,51 +73,42 @@ then
   bib2bib -q -r -s year -s '$key' -c 'author : "GodinDubois, Kevin*" or author : "Dubois, Kevin"' $library |
     grep -v -e "file =" -e "abstract =" |
     sed -e 's/type =/entrysubtype =/' \
-        -e 's|\(https://vimeo.*\)},|},\n  addendum = {Presentation: \\url{\1}},|' \
-        -e 's/\(url = {[^ ]*\) .*}/\1}/' \
+        -e 's/\(url = {[^ ]*\) .*}\(,\?\)/\1}\2/' \
+        -e 's/{{/{/' -e 's/}}/}/' \
         -e 's/{\\_}/_/g' \
         -e 's/{\\%}5C//g' \
-        -e 's/{{/{/' -e 's/}}/}/' \
+        -e 's|\(https://vimeo.*\)},|},\n  addendum = {Presentation: \\url{\1}},|' \
         > cv.bib
-  r=$?
-  if [ $r -eq 0 ]
-  then
-    cat cv.bib | while IFS= read line
-    do
-      [ "$line" == "" ] && continue
-      [[ $line =~ "@comment" ]] && continue
-      if [ "${line::1}" == @ ]
-      then
-        citekey=$(sed 's/.*{\(.*\),/\1/' <<< $line)
-        key=$(sed 's/.*Dubois\(.*\),/\1/' <<< $line | tr '[:upper:]' '[:lower:]')
-      fi
-      if [ "${line: -1}" == "}" -a -n "$key" ]
-      then
-        echo "$line,"
 
-        file=$(find ../download/papers -name "$key*.pdf" | sort | head -n 1 | sed 's/\.\.//')
-        if [ -n "$file" ]
-        then
-          echo "  local = {$file}"
-        else
-          printf "\033[31mWarning: no pdf for ${citekey} ($key)\033[0m\n" >&2
-        fi
-        key=""
+  cat cv.bib | while IFS= read line
+  do
+    [ "$line" == "" ] && continue
+    [[ $line =~ "@comment" ]] && continue
+    [[ $line =~ "url = {}" ]] && continue
+    if [ "${line::1}" == @ ]
+    then
+      citekey=$(sed 's/.*{\(.*\),/\1/' <<< $line)
+      key=$(sed 's/.*Dubois\(.*\),/\1/' <<< $line | tr '[:upper:]' '[:lower:]')
+    fi
+    if [ "${line: -1}" == "}" -a -n "$key" ]
+    then
+      echo "$line,"
+
+      file=$(find ../download/papers -name "$key*.pdf" | sort | head -n 1 | sed 's/\.\.//')
+      if [ -n "$file" ]
+      then
+        echo "  local = {$file}"
       else
-        echo "$line"
+        printf "\033[31mWarning: no pdf for ${citekey} ($key)\033[0m\n" >&2
       fi
-    done > ~cv.bib
-    mv ~cv.bib cv.bib
+      key=""
+    else
+      echo "$line"
+    fi
+  done > ~cv.bib
+  mv ~cv.bib cv.bib
 
-  fi
-  if [ $r -eq 0 ]
-  then
-    printf "\033[32mExtracted publications from $library\033[0m"
-    echo
-  else
-    echo "\033[31mFailed to extract publications from $library\033[0m"
-    exit 2
-  fi
+  printf "\033[32mExtracted publications from $library\033[0m\n"
 fi
 
 if [ -n "$cv" ]
