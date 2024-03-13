@@ -36,6 +36,8 @@ github: [metadata]
 remote_theme: jekyll/minima
 plugins:
   - jekyll-remote-theme
+  - jekyll-github-metadata
+  - jekyll-scholar
   - jekyll-seo-tag
 
 show_excerpts: true
@@ -52,6 +54,10 @@ minima:
 
 kramdown:
   hard_wrap: false
+
+scholar:
+    source: _CV
+    bibliography: cv.bib
 
 
 # Exclude from processing.
