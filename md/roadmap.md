@@ -2,6 +2,7 @@
 order: 100
 layout: page
 title: Roadmap
+hidden: true
 permalink: /roadmap/
 ---
 

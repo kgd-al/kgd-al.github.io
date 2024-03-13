@@ -34,18 +34,6 @@
             </svg>
           </span>
         </label>
-
-<!--        <div class="trigger">
-          {%- for path in page_paths -%}
-            {%- assign my_page = site.pages | where: "path", path | first -%}
-            {%- if my_page.title -%}
-              {%- assign depth = my_page.url | split: "/" | size | to_integer -%}
-              {%- if depth < 3 -%}
-                <a class="page-link" href="{{ my_page.url | relative_url }}">{{ my_page.title | escape }}</a>
-              {%- endif -%}
-            {%- endif -%}
-          {%- endfor -%}
-        </div>-->
         {%- include navigation.html %}
       </nav>
     {%- endif -%}
