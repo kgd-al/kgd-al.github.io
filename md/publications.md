@@ -9,6 +9,4 @@ permalink: /publications/
 
 Download <a href="{{ site.url }}/download/publications.pdf">pdf</a> version
 
-{%- bibliography -%}
-
 {% include_relative __generated/publications.html %}

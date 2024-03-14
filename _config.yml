@@ -58,7 +58,7 @@ kramdown:
 
 scholar:
     source: _CV
-    bibliography: cv.bib
+    bibliography: library.bib
 
 
 # Exclude from processing.

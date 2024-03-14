@@ -11,3 +11,5 @@ This a second paragraph.
 {% cite GodinDubois2020a %}
 
 {%- include vimeoPlayer.html id="345735054" -%}
+
+{%- bibliography --cited -%}

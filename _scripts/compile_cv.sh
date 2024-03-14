@@ -80,6 +80,11 @@ then
         -e 's|\(https://vimeo.*\)},|},\n  addendum = {Presentation: \\url{\1}},|' \
         > cv.bib
 
+  bib2bib -q \
+    --remove abstract --remove file --remove keywords --remove mendeley-tags \
+    --remove type \
+    $library -ob library.bib
+
   cat cv.bib | while IFS= read line
   do
     [ "$line" == "" ] && continue
