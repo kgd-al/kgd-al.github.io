@@ -58,7 +58,9 @@ kramdown:
 
 scholar:
     source: _CV
+    style: ieee
     bibliography: library.bib
+    bibliography_template: scholar_bib
 
 
 # Exclude from processing.

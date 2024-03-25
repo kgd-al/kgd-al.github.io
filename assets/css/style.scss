@@ -17,3 +17,19 @@ header {
 p {
   text-align: justify;
 }
+
+{% if site.scholar.style == "ieee" %}
+
+ol.bibliography li + li { /* 10px between each two adjacent li's */
+  margin-top: 10px;
+}
+
+ol.bibliography {
+  counter-reset: list-item;
+}
+
+ol.bibliography>li::marker {
+  content: "[" counter(list-item) "] ";
+}
+
+{% endif %}

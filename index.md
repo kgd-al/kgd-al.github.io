@@ -8,5 +8,10 @@ banner: True
 permalink: /
 ---
 
-My research revolves around Artificial Life in its myriad forms: from Morphogenetic Engineering to Open-Ended Evolution, from NeuroEvolution to Artificial Cognition, from swarms to artificial pets.
-In this website, you will find some down-to-earth content such as my list of [publications](/publications/) or my [CV](/cv/) as well as more (hopefully) inspiring information about the specifics of my [research](/research/) lines.
+My research revolves around Artificial Life in its myriad forms: from 
+Morphogenetic Engineering to Open-Ended Evolution, from NeuroEvolution to 
+Artificial Cognition, from swarms to artificial pets.
+In this website, you will find some down-to-earth content such as my list of 
+[publications](/publications) or my [CV](/cv) as well as more (hopefully)
+inspiring information about the specifics of my [research](/research/) lines
+and current [projects](/projects/).

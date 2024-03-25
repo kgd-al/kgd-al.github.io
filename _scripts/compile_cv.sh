@@ -113,6 +113,8 @@ then
   done > ~cv.bib
   mv ~cv.bib cv.bib
 
+  cp -v $library .
+
   printf "\033[32mExtracted publications from $library\033[0m\n"
 fi
 

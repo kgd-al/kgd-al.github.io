@@ -46,6 +46,13 @@
   padding: 4px;
 }
 
+.nav-dropdown .fa-circle {
+  padding: 0 4px 0 4px;
+  font-size: 50%;
+  transform: translate(0%, -50%);
+}
+
+
 .nav-dropdown-content a {
   float: none;
   padding: 12px 16px;
@@ -88,7 +95,7 @@
         {%- endfor -%}
       </div>
       {%- if i > 0 -%}
-        <i class="fa fa-caret-right"></i>
+        <i class="fa {{navigation_separator}}"></i>
       {%- endif -%}
     </div>
   {%- endfor -%}

@@ -1,12 +1,18 @@
-{%- for item in include.menu -%}
-    {%- if page.url == item.link -%}
-        {%- assign navigation_items = navigation_items | push: item -%}
-    {%- else -%}
-        {%- if navigation_items == empty -%}
-            {%- include navigation_find_path.html menu=item.submenu -%}
-            {%- if navigation_items != empty -%}
-                {%- assign navigation_items = navigation_items | push: item -%}
+{%- if page.url == site.data.__generated.navigation[0].link -%}
+    {%- assign navigation_items = include.menu[0].submenu | reverse -%}
+    {%- assign navigation_separator = "fa-circle" -%}
+{%- else -%}
+    {%- assign navigation_separator = "fa-caret-right" -%}
+    {%- for item in include.menu -%}
+        {%- if page.url == item.link -%}
+            {%- assign navigation_items = navigation_items | push: item -%}
+        {%- else -%}
+            {%- if navigation_items == empty -%}
+                {%- include navigation_find_path.html menu=item.submenu -%}
+                {%- if navigation_items != empty -%}
+                    {%- assign navigation_items = navigation_items | push: item -%}
+                {%- endif -%}
             {%- endif -%}
         {%- endif -%}
-    {%- endif -%}
-{%- endfor -%}
+    {%- endfor -%}
+{%- endif -%}

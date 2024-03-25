@@ -1,0 +1,28 @@
+---
+layout: base
+---
+<article class="post">
+
+    <header class="post-header">
+        <h1 class="post-title">{{ page.title | escape }}</h1>
+    </header>
+
+    <div class="post-content">
+        {%- assign no_image = page.image-hide | default: false -%}
+        {%- if page.image and no_image != true -%}
+        {%- assign width = page.image-width | default: "20%" -%}
+        <img src="{{baseurl}}{{page.image}}"
+             alt="{{page.title}}"
+             width="{{width}}"
+             align="left" hspace="2%"/>
+
+            {%- if width == "100%" -%}
+        <div style="clear: both"></div>
+        <br/>
+            {%- endif -%}
+        {%- endif -%}
+
+        {{ content }}
+    </div>
+
+</article>

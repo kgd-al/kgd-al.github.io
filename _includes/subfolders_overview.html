@@ -1,0 +1,26 @@
+{% assign page_path = page.path | remove: ".md" | append: "/" %}
+{%- for _page in site.pages -%}
+{%- assign sub_path = _page.path | remove: page_path | remove: ".md" -%}
+{%- if _page.path contains page_path -%}
+{%- if sub_path contains "/" -%}
+{%- continue -%}
+{%- endif -%}
+{%- assign desc = _page.content | strip_html | newline_to_br | split: "<br />" -%}
+
+<h3>{{_page.title}}</h3>
+
+<div>
+    {%- if _page.image -%}
+    <img src="{{baseurl}}{{_page.image}}" alt="{{_page.title}}" width="20%" align="left" hspace="2%"/>
+    {%- endif -%}
+
+    <p>
+        {{desc[0]}}
+        <br />
+        <a href="{{_page.url}}">Read more</a>
+    </p>
+</div>
+<div style="clear: both"></div>
+
+{%- endif -%}
+{%- endfor -%}

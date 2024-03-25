@@ -1,5 +1,5 @@
 ---
-order: 0
+order: 97
 navigation: false
 layout: page
 title: Publications (bib sources)

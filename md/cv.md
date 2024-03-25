@@ -1,8 +1,8 @@
 ---
-order: 2
+order: 10
 layout: page
 title: CV
-permalink: /cv/
+permalink: /cv
 ---
 
 <a href="{{ site.url }}/download/cv.pdf">pdf version</a>

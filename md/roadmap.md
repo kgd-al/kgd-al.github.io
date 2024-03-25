@@ -1,29 +1,27 @@
 ---
-order: 100
+order: 99
 layout: page
 title: Roadmap
 hidden: true
-permalink: /roadmap/
+permalink: /roadmap
 ---
 
 Todolist:
-- [x] Make a nice banner
-- [x] Provide a summary on the front page
-- [x] Software page
-- [x] Positions page
 - [ ] Research page:
    - [ ] Evolution
    - [ ] Splinoids
    - [ ] NeuroEvolution
    - [ ] Revolve
    - [ ] Reinforcement learning
-- [x] Post for amaze upload
+- [ ] Project page
+  - [ ] Artificial pets
+  - [ ] Abrain
+  - [ ] Misc
+    - [ ] Human impact
+    - [ ] CNNs for amaze
+    - [ ] Continuous control for amaze
+    - [ ] Pynoids / Splinoids (python port) 
 - [ ] Post for abrain v1.1
-- [X] Publications
-- [X] upload pdfs
 
 - [ ]  Banner:
-   - [ ]  neuroevolution (timelapse of ann lineage)
    - [ ]  VfMRI (activation patterns of ann)
-   - [X]  Reus world (APOGeT)
-   - [X]  Mortal kombat

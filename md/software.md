@@ -1,8 +1,8 @@
 ---
-order: 2
+order: 11
 layout: page
 title: Software
-permalink: /sofware/
+permalink: /software
 ---
 
 {%- assign H = "140px" -%}
@@ -10,7 +10,7 @@ permalink: /sofware/
 The list below highlights my most prominent software contributions to Artificial Life in general.
 Recent libraries/frameworks are coded in Python for maximal inter-operability while older ones are expected to be either ported or binded in the near future.
 
-## Amaze
+## AMaze
 
 <div>
 <img src="/resources/banner/amaze.gif" alt="amaze" width="{{H}}" align="left" hspace="2%"/>
@@ -26,7 +26,7 @@ Available as a pure-python library on
 More information on <a href="https://amaze.readthedocs.io/">read the docs</a>.
 </div>
 
-## Abrain
+## ABrain
 
 <div>
 <img src="/resources/banner/ann.gif" alt="abrain" width="{{H}}" align="left" hspace="2%"/>
@@ -64,4 +64,6 @@ The underlying algorithms rely on a methaphorical membrane that is extended thro
 The methology has been used for both asexual and sexual reproductions and can handle most corner cases such as hybridation from distant species.
 <br/>
 Available on <a href="https://github.com/kgd-al/APOGeT">github</a>.
+<br/>
+<a href="/publications/bib#GodinDubois2019c">Citation</a>
 </div>

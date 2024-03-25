@@ -1,6 +1,7 @@
 ---
-layout: base
-title: ANNs
+layout: research_item
+title: NeuroEvolution
+image: /resources/banner/ann.gif
 ---
 
 This is an item talking about Artificial Neural Networks and NeuroEvolution.
