@@ -9,8 +9,8 @@ permalink: /projects/
 
 ## Miscellaneous projects
 
-* Artificial pets (dedicated page)
-* abrain (dedicated page)
+### Splinoids port to python
 
-* Splinoids port to python
-* Impact of human agent on Interactive Reinforcement Learning
+The [Splinoids](/software#splinoids) have an incredibly complex morphological space with 3 human-level senses.
+However, their current implementation in C++ drastically limits their interoperability with other tools.
+Either by creating Python bindings or by completely porting the code, the Pynoids/sPlYnoids/Spynoids (pun is a work in progress) would be able to colonize a more favorable ecosystem.
