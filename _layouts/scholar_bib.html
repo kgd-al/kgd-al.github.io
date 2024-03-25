@@ -1,0 +1,18 @@
+---
+---
+
+{% if site.scholar.style == "ieee" %}
+    {% assign ref = reference | split: "]" %}
+    {% assign pre_num = ref[0] | split:"[" %}
+    {% for item in pre_num limit:1 %}
+        {{item}}
+    {% endfor %}
+    {% for item in ref offset:1 %}
+        {% if forloop.first == false %}
+            ]
+        {% endif %}
+        {{item}}
+    {% endfor %}
+{% else %}
+    {{reference}}
+{% endif %}

@@ -2,8 +2,11 @@ _site
 .sass-cache
 .jekyll-cache
 .jekyll-metadata
+.idea
 vendor
 
-Gemfile.lock
+*.aux
+*.log
+resources/apets/diagram.pdf
 
-.build.log
+Gemfile.lock
