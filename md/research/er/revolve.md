@@ -1,6 +1,8 @@
 ---
-layout: base
-title: Evolutionary Robotics (3D)
+layout: research_item
+title: Revolve
+order: 1
+stub: True
 ---
 
 This is an item describing about the revolve robots from the VU

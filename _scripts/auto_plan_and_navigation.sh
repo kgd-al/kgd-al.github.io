@@ -49,7 +49,8 @@ process(){
         link=$(_field permalink $file)
         [ -z $link ] && link=/$(sed 's/md$/html/' <<< $file)
 
-        name=$(_field title $file)
+        name=$(_field label $file)
+        [ -z "$name" ] && name=$(_field title $file)
         if [ -z "$name" ]
         then
             echo "No title for $file"

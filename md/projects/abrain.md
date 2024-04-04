@@ -21,5 +21,3 @@ The list of planned improvements is:
   * or at least links with existing libraries
 
 Feel free to contact me to participate in the development.
-
-{% include bibliography.html %}

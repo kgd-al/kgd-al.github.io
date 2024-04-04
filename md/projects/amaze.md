@@ -17,8 +17,8 @@ A few projects are currently underway to make progress in that direction:
 In addition, open projects remain:
 * Continuous control in maze-navigating agents
 * Integration with existing libraries:
-  [x] Stable baselines 3
-  [ ] [ABbrain](/software#abrain)
-  [ ] Anything else?
+  - [x] Stable baselines 3
+  - [ ] [ABrain](/software#abrain)
+  - [ ] Anything else?
 
 Feel free to contact me to participate.

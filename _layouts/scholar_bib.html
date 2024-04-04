@@ -1,17 +1,23 @@
 ---
 ---
 
-{% if site.scholar.style == "ieee" %}
-    {% assign ref = reference | split: "]" %}
-    {% assign pre_num = ref[0] | split:"[" %}
+{% if site.scholar.style contains "ieee" %}
+    {% if reference contains 'GodinDubois' %}
+        {% assign tokens = reference | split: '"' %}
+        {%- capture href -%}
+            <a href="/publications#{{tokens[1]}}">K. Godin-Dubois</a>
+        {%- endcapture -%}
+    {% endif %}
+    {% assign tokens = reference | split: "]" %}
+    {% assign pre_num = tokens[0] | split:"[" %}
     {% for item in pre_num limit:1 %}
         {{item}}
     {% endfor %}
-    {% for item in ref offset:1 %}
+    {% for item in tokens offset:1 %}
         {% if forloop.first == false %}
             ]
         {% endif %}
-        {{item}}
+        {{item | replace: "K. Godin-Dubois", href }}
     {% endfor %}
 {% else %}
     {{reference}}

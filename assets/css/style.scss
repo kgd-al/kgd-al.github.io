@@ -7,17 +7,30 @@
   "minima/skins/{{ site.minima.skin | default: 'auto' }}",
   "minima/initialize";
 
-/* Put any custom CSS here */
-
+// Monospace font
 header {
   font-family: $code-font-family;
   font-size: $small-font-size;
 }
+// -------------
 
+// Always justify (why is this not default?)
 p {
   text-align: justify;
 }
+// --------------
 
+// Prettier checklists
+li.task-list-item {
+  list-style-type: none;
+}
+
+input.task-list-item-checkbox {
+  margin-right: 1em;
+}
+// --------------------
+
+// Correct output for ieee cls (number on left margin *once*)
 {% if site.scholar.style == "ieee" %}
 
 ol.bibliography li + li { /* 10px between each two adjacent li's */
@@ -33,3 +46,4 @@ ol.bibliography>li::marker {
 }
 
 {% endif %}
+// ---------------------------------------------------------

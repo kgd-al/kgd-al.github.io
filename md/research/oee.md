@@ -1,10 +1,10 @@
 ---
-layout: base
+layout: research_item
 title: Open-Ended Evolution
+order: 4
+stub: True
 ---
 
-This is an item talking about Open-Ended Evolution.
+This is an item fronting my OEE research
 
-This a second paragraph.
-
-<a href="/publications#GodinDubois2020a">a</a>
+{%- include subfolders_overview.html -%}

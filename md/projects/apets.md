@@ -40,5 +40,3 @@ While first and foremost concerned with the study of emotional and social intell
 * Soft monitoring both at home and in hospitals
 * Evaluation in serious games 
 * Reduction of observer bias
-
-{% include bibliography.html %}

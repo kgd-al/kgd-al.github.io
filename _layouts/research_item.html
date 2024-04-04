@@ -24,5 +24,16 @@ layout: base
 
         {{ content }}
     </div>
+    <div class="auto-bibliography">
+    {%- capture cited_items -%}
+        {% bibliography_count --cited %}
+    {%- endcapture -%}
+    {%- assign cited_items = cited_items | plus: 0 -%}
+    {%- if cited_items > 0 %}
+        <h2>References</h2>
+
+        {% bibliography --cited_order %}
+    {%- endif -%}
+    </div>
 
 </article>
