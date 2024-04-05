@@ -10,11 +10,11 @@ layout: base
     <div class="post-content">
         {%- assign no_image = page.image-hide | default: false -%}
         {%- if page.image and no_image != true -%}
-        {%- assign width = page.image-width | default: "20%" -%}
-        <img src="{{baseurl}}{{page.image}}"
+        {%- assign width = page.image-width | default: "inherit" -%}
+        <img class="research-item-image"
+             src="{{baseurl}}{{page.image}}"
              alt="{{page.title}}"
-             width="{{width}}"
-             align="left" hspace="2%"/>
+             width="{{width}}"/>
 
             {%- if width == "100%" -%}
         <div style="clear: both"></div>

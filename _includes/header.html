@@ -19,9 +19,9 @@
     <div>
       <a class="site-title" rel="author" href="{{ "/" | relative_url }}">{{ site.title | escape }}</a>
 
-      <div align=right><em>
+      <span class="site-description"><em>
        {{ site.description }}
-      </em></div>
+      </em></span>
     </div>
 
     {%- if titles_size > 0 -%}
@@ -34,7 +34,9 @@
             </svg>
           </span>
         </label>
-        {%- include navigation.html %}
+        <div class="trigger">
+          {%- include navigation.html %}
+        </div>
       </nav>
     {%- endif -%}
   </div>

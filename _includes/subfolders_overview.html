@@ -15,11 +15,9 @@
 
 <div>
     {%- if _page.image -%}
-    <img src="{{baseurl}}{{_page.image}}"
-         alt="{{_page.title}}"
-         width="20%"
-         align="left"
-         style="margin-top: .5em;margin-right: 1em"/>
+    <img class="subfolder-image"
+         src="{{baseurl}}{{_page.image}}"
+         alt="{{_page.title}}"/>
     {%- endif -%}
 
     <p>
