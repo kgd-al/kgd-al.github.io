@@ -1,5 +1,4 @@
 ---
-layout: research_item
 title: Environment-Driven Evolutionary Selection
 label: EDEnS
 order: 3

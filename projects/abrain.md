@@ -1,5 +1,4 @@
 ---
-layout: research_item
 title: ABrain
 order: 2
 image: /resources/banner/ann.gif

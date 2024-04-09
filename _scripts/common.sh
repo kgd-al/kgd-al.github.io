@@ -1,7 +1,7 @@
 set -euo pipefail
 shopt -s inherit_errexit
 
-sources=md
+sources=src
 download=download
 autogen=__generated
 

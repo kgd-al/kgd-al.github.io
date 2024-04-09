@@ -1,5 +1,4 @@
 ---
-layout: research_item
 title: Automated Pylogeny Over Geological Timescales
 label: APOGeT
 order: 2

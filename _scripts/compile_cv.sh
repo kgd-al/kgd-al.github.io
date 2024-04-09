@@ -181,9 +181,15 @@ local="<i class='fa fa-download'></i>"
 remote="<i class='fa fa-external-link'></i>"
 target=$(find .. -type d -wholename "*/$sources/$autogen")
 bibtex2html -q --nodoc -nf local "$local" -note entrysubtype -revkeys -o $target/publications cv.bib
-sed -i -e "s|../$sources/$autogen/publications_bib.html|/publications/bib|" \
+sed -e "s|../$sources/$autogen/publications_bib.html|/publications/bib|" \
     -e "s|>.pdf</|>$remote</|" \
-    $target/publications.html
+    $target/publications.html \
+  | awk '
+    /\[&nbsp/{hold=1;data=""}
+    !hold{print}
+    hold{data=data""$0"\n"}
+    /&nbsp;]/{hold=0;print "<span class=\"biblio-widget\">"data"</span>"}' > ~publications.html
+  mv ~publications.html $target/publications.html
 sed -e 's/@comment.*//' \
     -e "s|../$sources/$autogen/publications.html|/publications/|" \
     -e 's|<h1>.*</h1>||' \

@@ -57,13 +57,29 @@ kramdown:
   hard_wrap: false
 
 scholar:
-    source: _CV
-    style: _CV/custom-ieee
-    bibliography: library.bib
-    bibliography_template: scholar_bib
+  source: _CV
+  style: nature
+  type: numeric
+  bibliography: library.bib
+  bibliography_template: scholar_bib
+  missing_reference: <span class="error">(missing reference)</span>
 
 feed:
   disable_in_development: true
+
+defaults:
+  -
+    scope:
+      path: 'research'
+      type: 'pages'
+    values:
+      layout: 'research_item'
+  -
+    scope:
+      path: 'projects'
+      type: 'pages'
+    values:
+      layout: 'research_item'
 
 # Exclude from processing.
 # The following items will not be processed, by default.
@@ -73,14 +89,18 @@ feed:
 # Excluded items can be processed by explicitly listing the directories or
 # their entries' file path in the `include:` list.
 #
-# exclude:
-#   - .sass-cache/
-#   - .jekyll-cache/
-#   - gemfiles/
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules/
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
+
+exclude:
+  - src/research/ # Symlinks. Do not re-generate
+  - src/projects/ #
+  - .idea
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/

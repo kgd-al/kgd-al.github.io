@@ -1,10 +1,10 @@
 <!-- Make sure to start on a new line -->
 <div style="clear: both"></div>
 
-{%- assign page_path = page.path | remove: ".md" | append: "/" -%}
+{%- assign page_path = page.path | remove: ".md" | remove: "src/" | append: "/" -%}
 {%- assign pages = site.pages | sort: "order" -%}
 {%- for _page in pages -%}
-{%- assign sub_path = _page.path | remove: page_path | remove: ".md" -%}
+{%- assign sub_path = _page.path | remove: page_path | remove: "src/" | remove: ".md" -%}
 {%- if _page.path contains page_path -%}
 {%- if sub_path contains "/" -%}
 {%- continue -%}

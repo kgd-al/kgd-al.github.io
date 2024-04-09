@@ -1,5 +1,4 @@
 ---
-layout: research_item
 title: AMaze
 order: 3
 image: /resources/banner/amaze.gif

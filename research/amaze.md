@@ -1,5 +1,4 @@
 ---
-layout: research_item
 title: AMaze
 image: /resources/amaze/sample.gif
 order: 3
@@ -14,5 +13,5 @@ This page only distillates results from publications and provides a hub for the 
 
 ## List of projects
 
-* [apets](/md/projects/apets.html), as a lightweight platform to test the combination of NeuroEvolution and Reinforcement Learning on a visual task with sparse rewards
-* main [project](/md/projects/amaze.html) page, listing current or planned work
+* [apets](/projects/apets.html), as a lightweight platform to test the combination of NeuroEvolution and Reinforcement Learning on a visual task with sparse rewards
+* main [project](/projects/amaze.html) page, listing current or planned work

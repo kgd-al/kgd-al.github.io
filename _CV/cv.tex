@@ -184,6 +184,9 @@
 \reversemarginpar
 \def\ok{}%\marginpar{\tikz\fill[green,draw=green!50!black,scale=1](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}}
 
+% ========================================
+
+\graphicspath{{../resources/cv/}}
 
 % =============================================================================
 % Contents
@@ -226,7 +229,7 @@
     splinoids_morphos/Morphogenetic Engineering/Morphogenetic Engineering} {
    \begin{minipage}[t]{.22\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{annexes/\i} \\
+    \includegraphics[width=\textwidth]{\i} \\
     \small\En{\lEn}\Fr{\lFr}
    \end{minipage}
    \hfill
@@ -309,7 +312,7 @@
   \begin{minipage}[t]{\lwidth}%
    \vspace{0pt}%
    \raggedleft
-   \includegraphics[width=\textwidth, height=4em, keepaspectratio]{annexes/#1}%
+   \includegraphics[width=\textwidth, height=4em, keepaspectratio]{#1}%
   \end{minipage}%
  }{%
   \begin{minipage}[t]{\rwidth}%

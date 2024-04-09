@@ -16,6 +16,17 @@ header {
 .site-description {
   white-space: nowrap;
   float: right;
+  line-height: 1;
+}
+
+.site-title-div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.site-title-spacer {
+  flex-grow: 1;
 }
 
 
@@ -26,6 +37,18 @@ p {
   text-align: justify;
   hyphens: auto;
 }
+
+.error {
+  background-color: red;
+}
+
+.citation-span {
+  font-size: 80%;
+  vertical-align: top !important;
+  position: relative;
+  top: -0.5em;
+}
+
 // --------------
 
 // Prettier checklists
@@ -39,7 +62,7 @@ input.task-list-item-checkbox {
 // --------------------
 
 // Correct output for ieee cls (number on left margin *once*)
-{% if site.scholar.style == "ieee" %}
+{% if site.scholar.type == "numeric" %}
 
 ol.bibliography li + li { /* 10px between each two adjacent li's */
   margin-top: 10px;
@@ -54,6 +77,10 @@ ol.bibliography>li::marker {
 }
 
 {% endif %}
+
+.biblio-widget {
+  white-space: nowrap;
+}
 
 // ---------------------------------------------------------
 

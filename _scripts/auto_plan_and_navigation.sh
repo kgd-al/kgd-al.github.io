@@ -6,7 +6,7 @@ nav=_data/$autogen/navigation.yml
 mkdir -pv $(dirname $nav)
 nav=$(realpath $nav)
 
-plan=md/$autogen/plan.md
+plan=$sources/$autogen/plan.md
 mkdir -pv $(dirname $plan)
 plan=$(realpath $plan)
 
@@ -15,7 +15,7 @@ plan_hidden=.plan
 I="  "
 
 _find(){
-    find $1 -mindepth 1 -maxdepth 1 ${@:2} \
+    find -L $1 -mindepth 1 -maxdepth 1 ${@:2} \
     | xargs awk '
         FNR==1 {
             order[FILENAME] = 999;
@@ -47,7 +47,12 @@ process(){
         fi
 
         link=$(_field permalink $file)
-        [ -z $link ] && link=/$(sed 's/md$/html/' <<< $file)
+        [ -z $link ] && link=/$(
+          sed -e 's/md$/html/' \
+              -e 's|src/research/|research/|' \
+              -e 's|src/projects/|projects/|' \
+           <<< $file
+        )
 
         name=$(_field label $file)
         [ -z "$name" ] && name=$(_field title $file)

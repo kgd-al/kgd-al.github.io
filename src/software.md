@@ -20,7 +20,7 @@ This library is meant to serve as a fast-prototyping platform to test various al
 a) computationally cheap; b) unbounded in complexity; and c) intuitively understandable by a human.
 The library works with either fully discrete perception and action spaces; fully continuous; or with continuous perceptions and discrete actions.
 <br/>
-Multiple investigations into its properties are detailed on its <a href="/md/projects/abrain.html">project</a> page, join in!
+Multiple investigations into its properties are detailed on its <a href="/projects/abrain.html">project</a> page, join in!
 <br/>
 Available as a pure-python library on
 <a href="https://pypi.org/project/amaze-benchmarker/">pypi</a>.
@@ -35,7 +35,7 @@ More information on <a href="https://amaze.readthedocs.io/">read the docs</a>.
 
 A C++ library, with python binding, implementing the Evolvable Substrate Hyper NeuroEvolution through Augmenting Topologies (ES-HyperNEAT) algorithms.
 Works, by default, on three dimensional substrates and can handle large input/output spaces.
-Also provides numerous tools for visualizing both the 3D ANN (dynamically or not) and the underlying CPPN. Currently under active development, see the related <a href="/md/projects/abrain.html">project</a> for more details.
+Also provides numerous tools for visualizing both the 3D ANN (dynamically or not) and the underlying CPPN. Currently under active development, see the related <a href="/projects/abrain.html">project</a> for more details.
 <br/>
 Available on
 <a href="https://pypi.org/project/abrain/">pypi</a>.

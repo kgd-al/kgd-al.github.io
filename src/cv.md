@@ -5,7 +5,8 @@ title: CV
 permalink: /cv
 ---
 
-<a href="{{ site.url }}/download/cv.pdf">pdf version</a>
+[pdf version](/download/cv.pdf)
+
 <style>
 body {
     font-size: 14px;

@@ -1,5 +1,4 @@
 ---
-layout: research_item
 title: Virtual functional Magnetic Resonance Imaging
 short-title: VfMRI
 label: VfMRI

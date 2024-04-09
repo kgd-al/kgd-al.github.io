@@ -1,5 +1,4 @@
 ---
-layout: research_item
 title: Revolve
 order: 1
 stub: True

@@ -1,9 +1,7 @@
 ---
-layout: research_item
 title: Artificial Pets
 image: /resources/apets/diagram.png
 order: 1
-image-width: 100%
 image-hide: true
 ---
 

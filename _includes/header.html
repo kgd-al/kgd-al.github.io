@@ -10,15 +10,15 @@
       <div><center>
         {%- assign width = 100 | divided_by: banner_items.size | divided_by: 1.05 | at_most: 20 -%}
         {%- for item in banner_items -%}
-          <a href="/md/research/{{item.page}}.html"><img src="{{site.baseurl}}{{item.src}}" alt="{{item.src}}" width="{{width}}%" title="{{item.desc}}"/></a>
+          <a href="/research/{{item.page}}.html"><img src="{{site.baseurl}}{{item.src}}" alt="{{item.src}}" width="{{width}}%" title="{{item.desc}}"/></a>
         {%- endfor -%}
       </center></div>
     {% endif %}
 
 
-    <div>
+    <div class="site-title-div">
       <a class="site-title" rel="author" href="{{ "/" | relative_url }}">{{ site.title | escape }}</a>
-
+      <span class="site-title-spacer"></span>
       <span class="site-description"><em>
        {{ site.description }}
       </em></span>

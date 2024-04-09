@@ -1,5 +1,4 @@
 ---
-layout: research_item
 title: Bail-Out Crossover
 label: BOC
 order: 1

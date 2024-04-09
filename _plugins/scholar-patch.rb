@@ -1,26 +1,32 @@
-puts "custom plugin root"
 module Jekyll
   class Scholar
     module Utilities
       alias_method :old_citation, :render_citation
+
+      @@sep=","
+      @@r_sep="-"
+
+      def cite_attributes
+        {class: config['cite_class']}
+      end
 
       def format_range(group)
         case group.size
         when 1
             "#{group[0]}"
         when 2
-            group.join(", ")
+            group.join(@@sep)
         else
-            "#{group[0]}-#{group[-1]}"
+            "#{group[0]}#{@@r_sep}#{group[-1]}"
         end
       end
 
       def items_in_citation(citation)
         begin_span_end = citation.index('>')
         end_span_start = citation.index('<', begin_span_end)
-        items_id = citation[begin_span_end+1..end_span_start-1].split(", ")
+        items_id = citation[begin_span_end+1..end_span_start-1].split(@@sep)
         return begin_span_end, end_span_start, items_id
-    end
+      end
 
       def render_citation(items)
         citation = old_citation(items)
@@ -41,7 +47,7 @@ module Jekyll
                 end
             end
 
-            items_merged = items_groups.map{|g| format_range(g)}.join(", ")
+            items_merged = items_groups.map{|g| format_range(g)}.join(@@sep)
             citation = citation[0..begin_span_end] + items_merged + citation[end_span_start..-1]
         end
         citation
@@ -58,9 +64,8 @@ module Jekyll
           end
         end
 
-        attributes = {class: config['cite_class']}
         if keys.size == 1
-            link_to link_target_for(keys[0]), render_citation(items), attributes
+            citation = link_to link_target_for(keys[0]), render_citation(items), cite_attributes
         else
             citation = render_citation(items)
 
@@ -72,19 +77,63 @@ module Jekyll
             hrefs = []
             items_id.each do |id|
                 sub_hrefs = []
-                id.split("-").each do |sid|
+                id.split(@@r_sep).each do |sid|
                     key = id_to_key[sid.to_i]
-                    sub_hrefs.append(link_to(link_target_for(key), sid, attributes))
+                    sub_hrefs.append(link_to(link_target_for(key), sid, cite_attributes))
                 end
-                hrefs.append(sub_hrefs.join("-"))
+                hrefs.append(sub_hrefs.join(@@r_sep))
             end
 
-            new_citation << hrefs.join(", ")
+            new_citation << hrefs.join(@@sep)
             new_citation << citation[end_span_start..]
-            return new_citation
+            citation = new_citation
         end
+
+        citation = citation.sub(/span/, "span class=\"citation-span\"")
+        return citation
+      end
+
+      alias_method :old_render_bibliography, :render_bibliography
+      def render_bibliography(entry, index = nil)
+        # Remove numerical part
+        bib_item = old_render_bibliography(entry, index)
+        if context.registers[:site].config['scholar']['type'] == "numeric"
+            bib_item = bib_item.sub! /\A.*?(?=[A-Z])/mi, ''
+        end
+        return bib_item
+      end
+    end
+
+    class CiteAuthorTag < Liquid::Tag
+      include Scholar::Utilities
+
+      def initialize(tag_name, arguments, tokens)
+        super
+
+        @config = Scholar.defaults.dup
+        @keys, arguments = split_arguments(arguments)
+
+        optparse(arguments)
+      end
+
+      def render(context)
+        set_context_to context
+        authors = keys.map do |key|
+          cited_keys << key
+          cited_keys.uniq!
+          item = bibliography[key]
+          author = item.author[0].split(",")[0].gsub(/{|}/, '')
+          if author.size > 1
+            author << " et al."
+          end
+          link_to(link_target_for(key), author, cite_attributes)
+        end
+        return authors.join(", ")
       end
     end
   end
 end
-# Liquid::Template.register_tag('amazon', Jekyll::Amazon::AmazonTag)
+
+Liquid::Template.register_tag('cite_author', Jekyll::Scholar::CiteAuthorTag)
+
+puts "          >> Plugin: Jekyll scholar patch loaded"

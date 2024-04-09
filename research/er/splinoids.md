@@ -1,5 +1,4 @@
 ---
-layout: research_item
 title: Splinoids
 order: 2
 stub: True

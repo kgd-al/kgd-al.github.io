@@ -1,5 +1,4 @@
 ---
-layout: research_item
 title: Evolutionary Robotics
 order: 2
 stub: True

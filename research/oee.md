@@ -1,5 +1,4 @@
 ---
-layout: research_item
 title: Open-Ended Evolution
 order: 4
 stub: True
