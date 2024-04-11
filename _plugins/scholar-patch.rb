@@ -6,6 +6,15 @@ module Jekyll
       @@sep=","
       @@r_sep="-"
 
+      def citation_start(numeric)
+          span = "<span class=\"citation-span"
+          if numeric
+            span << " citation-numeric"
+          end
+          span << "\">"
+      end
+      @@citation_end = "</span>"
+
       def cite_attributes
         {class: config['cite_class']}
       end
@@ -53,6 +62,16 @@ module Jekyll
         citation
       end
 
+      def render_citation_tooltip(items)
+          tooltip = ""
+          tooltip << "<sup class=\"citation-tooltip\" markdown=\"span\">"
+          tooltip << "<span class=\"citation-tooltip-content bibliography\">"
+          tooltip << items.map {|item| "<bi>[#{citation_number(item.key)}] #{reference_tag(item)}</bi>"}.join("<br/>")
+          tooltip << "</span>"
+          tooltip << "</sup>"
+          return tooltip
+      end
+
       alias_method :old_citer, :cite
       def cite(keys)
         items = keys.map do |key|
@@ -64,32 +83,28 @@ module Jekyll
           end
         end
 
-        if keys.size == 1
-            citation = link_to link_target_for(keys[0]), render_citation(items), cite_attributes
-        else
-            citation = render_citation(items)
+        citation = render_citation(items)
 
-            begin_span_end, end_span_start, items_id = items_in_citation(citation)
-            new_citation = citation[..begin_span_end]
+        begin_span_end, end_span_start, items_id = items_in_citation(citation)
 
-            id_to_key = Hash[keys.map{|k| [citation_number(k), k]}]
+        id_to_key = Hash[keys.map{|k| [citation_number(k), k]}]
 
-            hrefs = []
-            items_id.each do |id|
-                sub_hrefs = []
-                id.split(@@r_sep).each do |sid|
-                    key = id_to_key[sid.to_i]
-                    sub_hrefs.append(link_to(link_target_for(key), sid, cite_attributes))
-                end
-                hrefs.append(sub_hrefs.join(@@r_sep))
+        hrefs = []
+        items_id.each do |id|
+            sub_hrefs = []
+            id.split(@@r_sep).each do |sid|
+                key = id_to_key[sid.to_i]
+                sub_hrefs.append(link_to(link_target_for(key), sid, cite_attributes))
             end
-
-            new_citation << hrefs.join(@@sep)
-            new_citation << citation[end_span_start..]
-            citation = new_citation
+            hrefs.append(sub_hrefs.join(@@r_sep))
         end
 
-        citation = citation.sub(/span/, "span class=\"citation-span\"")
+        citation = citation_start(numeric=true)
+        citation << hrefs.join(@@sep)
+        citation << render_citation_tooltip(items)
+        citation << @@citation_end
+
+#         p citation
         return citation
       end
 
@@ -118,17 +133,27 @@ module Jekyll
 
       def render(context)
         set_context_to context
-        authors = keys.map do |key|
+        items = keys.map do |key|
           cited_keys << key
           cited_keys.uniq!
           item = bibliography[key]
+        end
+
+        authors = items.map do |item|
           author = item.author[0].split(",")[0].gsub(/{|}/, '')
           if author.size > 1
             author << " et al."
           end
-          link_to(link_target_for(key), author, cite_attributes)
+          link_to(link_target_for(item.key), author, cite_attributes)
         end
-        return authors.join(", ")
+
+        citation = citation_start(numeric=false)
+        citation << authors.join(", ")
+        citation << render_citation_tooltip(items)
+        citation << @@citation_end
+
+#         p citation
+        return citation
       end
     end
   end

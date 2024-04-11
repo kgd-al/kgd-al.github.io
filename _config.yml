@@ -55,6 +55,7 @@ minima:
 
 kramdown:
   hard_wrap: false
+  parse_span_html: false
 
 scholar:
   source: _CV
