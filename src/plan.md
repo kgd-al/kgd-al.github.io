@@ -1,5 +1,5 @@
 ---
-order: 99
+order: 97
 layout: page
 hidden: true
 title: Site plan

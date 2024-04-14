@@ -2,16 +2,22 @@ module Jekyll
   class Scholar
     module Utilities
       alias_method :old_citation, :render_citation
+      include BibTeX
 
       @@sep=","
       @@r_sep="-"
 
-      def citation_start(numeric)
+      @@me = "Godin-Dubois, K."
+      @@link = '<i class="fa fa-external-link"></i>'
+
+      @@tooltips = []
+
+      def citation_start(numeric, ct_id)
           span = "<span class=\"citation-span"
           if numeric
             span << " citation-numeric"
           end
-          span << "\">"
+          span << "\" target-ctid=\"#{ct_id}\">"
       end
       @@citation_end = "</span>"
 
@@ -62,14 +68,24 @@ module Jekyll
         citation
       end
 
-      def render_citation_tooltip(items)
+      def generate_citation_tooltip(items)
+          id = "citation-tooltip-id#{@@tooltips.size}"
           tooltip = ""
-          tooltip << "<sup class=\"citation-tooltip\" markdown=\"span\">"
-          tooltip << "<span class=\"citation-tooltip-content bibliography\">"
-          tooltip << items.map {|item| "<bi>[#{citation_number(item.key)}] #{reference_tag(item)}</bi>"}.join("<br/>")
-          tooltip << "</span>"
-          tooltip << "</sup>"
-          return tooltip
+          tooltip << "<div class=\"citation-tooltip\" id=\"#{id}\">\n"
+          tooltip << "  <div class=\"citation-tooltip-content bibliography\">\n"
+          tooltip << "    <table>\n"
+          tooltip << items.map {
+              |item| "      <tr>\n" \
+                     "        <td><a href=\"##{item.key}\">#{citation_number(item.key)}</a>.</td>\n" \
+                     "        <td>#{reference_tag(item).sub(/ id="[^"]+"/, '')}</td>\n" \
+                     "      </tr>\n"
+          }.join("\n")
+          tooltip << "    </table>\n"
+          tooltip << "  </div>\n"
+          tooltip << "</div>\n"
+          @@tooltips.append(tooltip)
+#           p tooltip
+          return id
       end
 
       alias_method :old_citer, :cite
@@ -84,24 +100,12 @@ module Jekyll
         end
 
         citation = render_citation(items)
-
         begin_span_end, end_span_start, items_id = items_in_citation(citation)
 
-        id_to_key = Hash[keys.map{|k| [citation_number(k), k]}]
+        ct_id = generate_citation_tooltip(items)
 
-        hrefs = []
-        items_id.each do |id|
-            sub_hrefs = []
-            id.split(@@r_sep).each do |sid|
-                key = id_to_key[sid.to_i]
-                sub_hrefs.append(link_to(link_target_for(key), sid, cite_attributes))
-            end
-            hrefs.append(sub_hrefs.join(@@r_sep))
-        end
-
-        citation = citation_start(numeric=true)
-        citation << hrefs.join(@@sep)
-        citation << render_citation_tooltip(items)
+        citation = citation_start(numeric=true, ct_id=ct_id)
+        citation << items_id.join(@@sep)
         citation << @@citation_end
 
 #         p citation
@@ -110,13 +114,34 @@ module Jekyll
 
       alias_method :old_render_bibliography, :render_bibliography
       def render_bibliography(entry, index = nil)
-        # Remove numerical part
         bib_item = old_render_bibliography(entry, index)
-        if context.registers[:site].config['scholar']['type'] == "numeric"
-            bib_item = bib_item.sub! /\A.*?(?=[A-Z])/mi, ''
+        if entry.respond_to? :doi
+            bib_item << " <a href=\"https://doi.org/#{entry.doi}\">#{@@link}</a>"
+        elsif entry.respond_to? :url
+            bib_item << " <a href=\"#{entry.url}\">#{@@link}</a>"
         end
+
+        href = ""
+        if bib_item.include? @@me
+          href = "<a href=\"/publications##{entry.key}\">#{@@me}</a>"
+          bib_item.sub!(@@me, href)
+        end
+
         return bib_item
       end
+    end
+
+    class BibliographyTag
+       include Utilities
+
+       alias_method :old_render, :render
+       def render(context)
+#           puts "Rendering bibliography"
+          biblio = old_render(context)
+          biblio << @@tooltips.join("\n")
+          @@tooltips = []
+          return biblio
+       end
     end
 
     class CiteAuthorTag < Liquid::Tag
@@ -144,12 +169,11 @@ module Jekyll
           if author.size > 1
             author << " et al."
           end
-          link_to(link_target_for(item.key), author, cite_attributes)
         end
 
-        citation = citation_start(numeric=false)
+        ct_id = generate_citation_tooltip(items)
+        citation = citation_start(numeric=false, ct_id=ct_id)
         citation << authors.join(", ")
-        citation << render_citation_tooltip(items)
         citation << @@citation_end
 
 #         p citation
@@ -161,4 +185,4 @@ end
 
 Liquid::Template.register_tag('cite_author', Jekyll::Scholar::CiteAuthorTag)
 
-puts "          >> Plugin: Jekyll scholar patch loaded"
+puts "         >> Plugin: Jekyll scholar patch loaded"

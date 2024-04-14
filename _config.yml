@@ -59,10 +59,10 @@ kramdown:
 
 scholar:
   source: _CV
-  style: nature
+  style: _data/nature-custom.csl
   type: numeric
   bibliography: library.bib
-  bibliography_template: scholar_bib
+#  bibliography_template: scholar_bib
   missing_reference: <span class="error">(missing reference)</span>
 
 feed:

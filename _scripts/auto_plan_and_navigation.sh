@@ -30,9 +30,6 @@ _find(){
     | sort -g | cut -d ' ' -f 2-
 }
 
-_grep() { grep $@ || test $? = 1; }
-_field() { _grep $@ | cut -d ' ' -f 2-; }
-
 process(){
     local folder=$1
     local depth=$2

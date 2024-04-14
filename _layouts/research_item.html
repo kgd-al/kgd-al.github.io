@@ -42,30 +42,6 @@ layout: base
     {%- endif -%}
     </div>
 
-    <script>
-        console.log("Hello from javascript")
-        const citations = document.getElementsByClassName('citation-span');
-        console.log("citations:", citations)
-        for (let i=0; i<citations.length; i++) {
-            citations[i].addEventListener('mouseenter', evt => {
-                let sbr = citations[i].getBoundingClientRect();
-                console.log("==", i, "=====")
-                console.log(window.innerWidth)
-                console.log("sbr:", sbr)
-                let tooltip = citations[i].getElementsByClassName("citation-tooltip")[0]
-
-                let tbr = tooltip.getBoundingClientRect()
-                let overflow = (window.innerWidth - sbr.right - tbr.width) + "px"
-                console.log("tbr:", tbr)
-                console.log("overflow:", overflow)
-                tooltip.style.right = "max(0px, " + overflow + ")"
-                console.log(tooltip.style.right)
-                // tooltip.style.setProperty('--pos-x', sbr.right);
-                // tooltip.style.transform = "translateX(-" + x +"px)";
-                // tooltip.style.color = "blue";
-                console.log(tooltip)
-            });
-        }
-    </script>
+    <script src="/js/tooltips.js"></script>
 
 </article>

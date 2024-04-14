@@ -1,0 +1,33 @@
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  justify-items: center;
+  gap: .5em;
+  //background-color: red;
+}
+
+.responsive-gallery-item {
+  padding: 0;
+  margin: 0;
+  border: solid 1px var(--minima-border-color-03);
+  width: 100%;
+}
+
+.responsive-gallery-image {
+  width: 100%;
+}
+
+@media only screen and (max-width: 700px) {
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+    //background-color: green;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .gallery {
+    grid-template-columns: 1fr;
+    //background-color: blue;
+  }
+}

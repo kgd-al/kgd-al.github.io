@@ -46,6 +46,7 @@ p {
 // Citation style
 
 .citation-span {
+  color: var(--minima-link-base-color);
 }
 
 .citation-numeric {
@@ -60,35 +61,39 @@ p {
 
   position: absolute;
   width: 40em;
-  //background-color: yellow;
   z-index: 1;
-  //font-size: 80%;
-  //transition: bottom 0.5s ease-in-out;
-  //transform: translateY(1.5em);
-
-  //opacity: 0;
-  //visibility: hidden;
+  font-size: 90%;
+  right: 0;
+  overflow: clip;
+  //background-color: green;
 }
 
 .citation-tooltip-content {
   display: inline-block;
   margin: 1em;
-  padding: .5em;
-  //background-color: blue;
+  padding: 0;
+  border-radius: 10px 0 10px 0;
+  border-style: ridge;
+  border-color: var(--minima-brand-color);
   background-color: var(--minima-code-background-color);
+  //background-color: blue;
 }
 
-.citation-span:hover .citation-tooltip {
-  display: inline-block;
-
-  //opacity: 0.7;
-  //visibility: visible;
-  //transition: all 500ms;
-  //transition-delay: 3s;
+.citation-tooltip-content table {
+  padding: 0.5em;
+  border: none;
+  margin-bottom: 0;
 }
 
-bi {
-  text-indent:70px;
+.citation-tooltip-content table tr {
+  margin-bottom: .25em;
+}
+
+.citation-tooltip-content table td {
+  border-style : hidden!important;
+  padding: .5em 1em .5em .5em;
+  vertical-align: top;
+  @extend p
 }
 
 // --------------
@@ -109,14 +114,14 @@ input.task-list-item-checkbox {
 ol.bibliography li + li { /* 10px between each two adjacent li's */
   margin-top: 10px;
 }
-
-ol.bibliography {
-  counter-reset: list-item;
-}
-
-ol.bibliography>li::marker {
-  content: "[" counter(list-item) "] ";
-}
+//
+//ol.bibliography {
+//  counter-reset: list-item;
+//}
+//
+//ol.bibliography>li::marker {
+//  content: "[" counter(list-item) "] ";
+//}
 
 {% endif %}
 
@@ -147,3 +152,4 @@ ol.bibliography>li::marker {
 }
 
 @import "navigation";
+@import "gallery";
