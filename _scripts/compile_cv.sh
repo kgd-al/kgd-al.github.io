@@ -70,7 +70,9 @@ done
 
 if [ -n "$library" ]
 then
-  bib2bib -q -r -s year -s '$key' -c 'author : "GodinDubois, Kevin*" or author : "Dubois, Kevin"' $library |
+  bib2bib -q -r -s year -s '$key' \
+      -c 'author : "GodinDubois, Kevin*" or author : "Dubois, Kevin"' \
+       $library 2> >(grep -v -e "Sorting...done" -e "No citation file output") |
     grep -v -e "file =" -e "abstract =" |
     sed -e 's/type =/entrysubtype =/' \
         -e 's/\(url = {[^ ]*\) .*}\(,\?\)/\1}\2/' \
@@ -83,7 +85,7 @@ then
   bib2bib -q \
     --remove abstract --remove file --remove keywords --remove mendeley-tags \
     --remove type \
-    $library -ob library.bib
+    $library -ob library.bib 2> >(grep -v "No citation file output")
 
   cat cv.bib | while IFS= read line
   do
@@ -112,8 +114,6 @@ then
     fi
   done > ~cv.bib
   mv ~cv.bib cv.bib
-
-  cp -v $library .
 
   printf "\033[32mExtracted publications from $library\033[0m\n"
 fi

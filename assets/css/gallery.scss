@@ -31,3 +31,14 @@
     //background-color: blue;
   }
 }
+
+.checkbox {
+  position: absolute;
+  top: 0;
+  right: 0;
+  opacity: .1;
+}
+
+.checkbox:hover {
+  opacity: 1;
+}

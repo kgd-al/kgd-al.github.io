@@ -1,10 +1,14 @@
 #!/bin/bash
 
+job="Cleaning"
 source $(dirname $0)/common.sh
 
 (
   find . -name "*.aux" -o -name "[[:alpha:]]*.log";
   echo _site;
-) | xargs rm -rvf
+) | xargs rm -rvf | to_log
 
-[ $# -ge 1 ] && tree . -I .git
+if [ $# -ge 1 ]
+then
+  tree . -I .git
+fi

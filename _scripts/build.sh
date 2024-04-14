@@ -1,14 +1,10 @@
 #!/bin/bash
 
+job=Building
 scripts=$(dirname $0)
 source $scripts/common.sh
 
-log=.build.log
-date > $log
-
-echo "Building navigation"
-$scripts/auto_plan_and_navigation.sh >> $log
-
-echo "Building cv"
-$scripts/compile_cv.sh -c -a -e default \
-    | tee -a $log | grep --color=never $'\e' | sed 's/^/> /'
+step "Building cv" $scripts/compile_cv.sh -c -a -e default
+step "Building navigation" $scripts/auto_plan_and_navigation.sh
+step "Building site locally" $scripts/jekyll.sh build
+step "Generating gallery" $scripts/generate_gallery.sh

@@ -4,6 +4,9 @@
 - src: /resources/banner/ann.gif
   file: /research/ne.html
 
+- src: ${item[1]}
+  file: /js/gallery.js
+
 - src: /resources/apets/diagram.png
   file: /projects/apets.html
 

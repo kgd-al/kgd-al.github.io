@@ -6,17 +6,14 @@ then
     exit 1
 fi
 
+#set -x
 scripts=$(dirname $0)
 source $scripts/common.sh
+date > $log
 
 $scripts/build.sh | sed 's/^/> /'
-echo "Building done"
-
 $scripts/proof.sh | sed 's/^/> /'
-echo "Checking done"
-
 $scripts/clean.sh | sed 's/^/> /'
-echo "Cleaned"
 
 if [ "$1" != "test" ]
 then
