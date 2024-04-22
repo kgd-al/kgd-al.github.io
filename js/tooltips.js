@@ -22,9 +22,12 @@ for (let i=0; i<citations.length; i++) {
         console.log("Mouse entered", citation, tooltip)
         let sbr = citation.getBoundingClientRect();
         // console.log("==", i, "=====")
-        // console.log(window.innerWidth)
-        // console.log("sbr:", sbr)
+        console.log(window.innerWidth)
+        console.log(window.scrollX, window.scrollY)
+        console.log("sbr:", sbr)
 
+        // let x = sbr.left
+        // let y = sbr.top
         let x = window.scrollX + sbr.left
         let y = window.scrollY + sbr.top
 
@@ -36,14 +39,14 @@ for (let i=0; i<citations.length; i++) {
         tooltip.style.right = "max(1em, " + overflow + ")"
         // tooltip.style.left = "0";
         tooltip.style.top = y + "px"
-        // console.log(tooltip.style.right, tooltip.style.top)
+        console.log(tooltip.style.right, tooltip.style.top)
         // console.log(tooltip)
     });
 
-    tooltip.addEventListener('mouseleave', evt => {
-        tooltip.style.display = 'none'
-        console.log("Mouse left", tooltip)
-    })
+    // tooltip.addEventListener('mouseleave', evt => {
+    //     tooltip.style.display = 'none'
+    //     console.log("Mouse left", tooltip)
+    // })
 }
 
 console.log("[kgd-debug] Monitoring")

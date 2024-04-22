@@ -3,7 +3,6 @@ title: NeuroEvolution
 image: /resources/banner/ann.gif
 order: 1
 math: True
-stub: True
 ---
 
 NeuroEvolution is a research field regrouping all techniques by which an Artificial Neural Network (ANN) can be made "better" via an Evolutionary approach with either direct or indirect encodings.
@@ -53,10 +52,18 @@ To conclude on this (brief) overview of the field, the inquisitive reader is ref
 
 ## In my research
 
-In the context
+NeuroEvolution is central to my research lines since early 2020, and has been a personal interest for much longer.
+As illustrated above, it is a subject I find fascinating by the opportunity it offers to create intelligent Artificial Life.
+Not Artificial Intelligence, mind.
+Autonomous, self-sufficient life forms made, not from biology, but from science.
 
-* {% cite Miconi2018 %} Differentiable indirect plasticity (read!)
+While we quite far off that lovely objective, preliminary research into the mechanism of spontaneous self-organisation in ANNs already show promising results with respect to primitive mental states{% cite GodinDubois2021a %}, communication{% cite GodinDubois2021b %} or coordination{% cite GodinDubois2022a %}.
+Thanks to their emerging properties, one can investigate a plethora of phenomenon, *if* these ANNs are faced with sufficiently complex environments and given enough evolutionqry budget{% cite GodinDubois2023 %}.
 
-* {% cite GodinDubois2023 %}
+The following sections, highlight some prominent aspects of from my recent research. 
 
 {%- include subfolders_overview.html -%}
+
+## Personal notes
+
+* {% cite_author Miconi2018 %} Differentiable indirect plasticity (useful?)

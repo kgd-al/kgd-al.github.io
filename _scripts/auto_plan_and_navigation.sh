@@ -51,8 +51,8 @@ process(){
            <<< $file
         )
 
-        name=$(_field label $file)
-        [ -z "$name" ] && name=$(_field title $file)
+        name=$(_field label: $file)
+        [ -z "$name" ] && name=$(_field title: $file)
         if [ -z "$name" ]
         then
             echo "No title for $file"

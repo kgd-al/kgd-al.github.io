@@ -4,6 +4,8 @@ imgs = JSON.parse(document.currentScript.textContent)
 console.log(imgs)
 
 cb = document.getElementById("duplicates");
+cb.parentElement.parentElement.parentElement.style.position = 'relative';
+console.log(cb.parentElement)
 cb.addEventListener("change", evt => { do_work() });
 
 function shuffleArray(array) {

@@ -6,7 +6,7 @@ title: Site gallery
 permalink: /gallery
 ---
 
-<div class="checkbox">
+<div class="checkbox" id="checkbox-div">
     <input type="checkbox" id="duplicates"/>
     <label for="duplicates">Show duplicates?</label>
 </div>
