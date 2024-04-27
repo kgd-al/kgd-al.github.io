@@ -42,6 +42,10 @@ p {
   background-color: red;
 }
 
+.tooltip-content {
+  @extend .citation-tooltip-content
+}
+
 // -------------
 // Citation style
 

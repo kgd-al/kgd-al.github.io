@@ -6,6 +6,8 @@ title: Site gallery
 permalink: /gallery
 ---
 
+<link rel="stylesheet" href="/assets/css/gallery.scss">
+
 <div class="checkbox" id="checkbox-div">
     <input type="checkbox" id="duplicates"/>
     <label for="duplicates">Show duplicates?</label>
