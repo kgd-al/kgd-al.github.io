@@ -34,11 +34,22 @@ class RNG {
     }
 }
 
+function getRandomSubarray(arr, size) {
+    let shuffled = arr.slice(0), i = arr.length, min = i - size, temp, index;
+    while (i-- > min) {
+        index = Math.floor((i + 1) * Math.random());
+        temp = shuffled[index];
+        shuffled[index] = shuffled[i];
+        shuffled[i] = temp;
+    }
+    return shuffled.slice(min);
+}
+
 export class Evolver {
     constructor() {
         this.generation = 0;
         this.genomes = null;
-        this.rng = new RNG(3);
+        // this.rng = new RNG(3);
     }
 
     reset() {
@@ -46,7 +57,7 @@ export class Evolver {
         this.generation = 0;
         this.genomes = Array.from(
             {length: n*n},
-            () => Genome.random(this.rng));
+            () => Genome.random(Math.random));
     }
 
     popSize() { return this.genomes.length; }
@@ -82,6 +93,16 @@ export class Evolver {
         if (increment)
             this.generation += 1;
     }
+
+    toJSON() {
+        return {
+            generation: this.generation,
+            population: this.genomes.map((g) => g.data)
+        }
+    }
+
+    fromJSON(json) {
+        this.generation = json.generation;
+        this.genomes = json.population.map((g) => new Genome(g));
+    }
 }
-
-

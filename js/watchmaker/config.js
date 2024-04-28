@@ -7,7 +7,7 @@ export class Config {
     static mutationsCount = 100;
     static mutationsAmplitude = .05;
 
-    static preset = "Pure crossover";
+    static preset = "Incremental";
     static presets = {
         "Custom": {},
         "Incremental": {

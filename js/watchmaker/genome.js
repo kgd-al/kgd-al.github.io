@@ -26,11 +26,11 @@ export class Genome {
         this.data = data;
     }
 
-    static random(rng){
+    static random(random){
         return new Genome(
             Array.from(
                 {length: this.#splines_fields + this.#colors_fields},
-                () => rng.random() * Config.initMutationRange));
+                () => random() * Config.initMutationRange));
     }
 
     mutate() {

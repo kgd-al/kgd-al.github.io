@@ -100,12 +100,11 @@ function make_controls(){
     destructive_event("s_preset", "preset", (v, e) => {
         // console.log("Switching to preset", v);
         Config.preset = e.target.options[e.target.selectedIndex].text;
-        use_preset();
+        update_from_preset();
         reset();
     });
 
-    presets.selectedIndex = Array.from(presets.options).findIndex((opt) => opt.text == Config.preset);
-    use_preset()
+    update_from_preset()
 }
 
 function create_buttons() {
@@ -128,14 +127,23 @@ function init() {
     evolver.reset();
     create_buttons();
 
-    fullscreen();
     resized();
 }
 
-function use_preset(){
+function update_from_preset(){
+    let presets = document.getElementById("s_preset");
+    presets.selectedIndex = Array.from(presets.options).findIndex((opt) => opt.text == Config.preset);
     Object.entries(Config.presets[Config.preset]).forEach(([k, v]) => {
         Config[k] = v;
         controlItems.get(configToControl.get(k)).value = v;
+    });
+}
+
+function update_from_config() {
+    Object.entries(Config).forEach(([k, v]) => {
+        let control = configToControl.get(k);
+        if (control)
+            controlItems.get(control).value = v;
     });
 }
 
@@ -152,9 +160,14 @@ function draw(){
     buttons.forEach(b => b.draw(ctx))
 }
 
-function fullscreen() {
-    let promise = canvas.requestFullscreen();
-    console.log(promise)
+function fullscreenOn() {
+    let item = document.getElementById("interface-wrapper");
+    if (!document.fullscreenElement)
+        item.requestFullscreen().catch((err) => {
+            alert("Fullscreen request rejected");
+        });
+    else
+        document.exitFullscreen();
 }
 
 function contextMenuOn(target, x, y) {
@@ -177,27 +190,14 @@ function contextMenuEvent(id) {
     let blob = new Blob(
         [new XMLSerializer().serializeToString(svg)],
         {type: 'image/svg+xml'})
-    const blobURL = window.URL.createObjectURL(blob);
-
-    // let dbgImg = new Image();
-    // dbgImg.src = blobURL;
-    // dbgImg.style.width = dbgImg.style.height = `${size}px`;
-    // dbgImg.style.border = "1px solid red";
-    // document.body.prepend(dbgImg)
-
-    const link = document.createElement("a");
-    link.href = blobURL;
-    link.setAttribute('download', `splinoid-${evolver.generation}-${ix}.svg`);
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    window.URL.revokeObjectURL(blobURL);
+    saveBlob(blob, `splinoid-${evolver.generation}-${ix}.svg`);
 }
 
 function resized() {
+    let heightRatio = document.fullscreenElement ? 1 : .9;
     let size = Math.min(
-            .9*window.innerWidth - canvas.nextElementSibling.offsetWidth - 5,
-        .9*window.innerHeight)
+        .9*window.innerWidth - canvas.nextElementSibling.offsetWidth - 5,
+        heightRatio * window.innerHeight)
     // let size = Math.min(canvas.parentElement.offsetWidth, canvas.parentElement.offsetHeight);
     canvas.style.width = size + "px";
     canvas.width = size;
@@ -235,7 +235,71 @@ function new_generation(ixs) {
     update_generation_label();
 }
 
+function save() {
+    console.log("Saving");
+    // console.log(Object.keys(Config));
+    let json = {
+        config: Object.keys(Config).reduce((r, k) => {
+            r[k] = Config[k];
+            return r;
+        }, {}),
+        evolution: evolver.toJSON(),
+    }
+    // console.log(json);
+    let json_str = JSON.stringify(json);
+    let blob = new Blob([json_str], {type: "application/json"});
+    saveBlob(blob, `watchmaker-splinoids-gen${evolver.generation}.json`);
+}
+
+function load_event() {
+    console.log("Loading (maybe)");
+    let input_row = document.getElementById("load_file_row");
+    input_row.style.display = 'table-row';
+    let file_input = document.getElementById("i_file");
+
+    file_input.addEventListener("change", load);
+}
+
+function load () {
+    let input_row = document.getElementById("load_file_row");
+    let file_input = document.getElementById("i_file");
+    let file = file_input.files[0];
+    console.log("Loading from", file);
+    file_input.value = null;
+    input_row.style.display = "none";
+    file_input.removeEventListener("change", load);
+
+    let reader = new FileReader();
+    reader.readAsText(file, "UTF-8");
+    reader.onload = (event) => {
+        let content = event.target.result;
+        console.log(content);
+        let json = JSON.parse(content)
+        console.log(json);
+        Object.assign(Config, json.config);
+        update_from_preset();
+        update_from_config();
+        evolver.fromJSON(json.evolution);
+    };
+}
+
+function saveBlob(blob, filename) {
+    const blobURL = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = blobURL;
+    link.setAttribute('download', filename);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.URL.revokeObjectURL(blobURL);
+}
+
 init()
+
+// ============================================================================
+// == Events
+// ============================================================================
+
 window.addEventListener("resize", resized);
 
 window.matchMedia('(prefers-color-scheme: dark)')
@@ -326,16 +390,22 @@ canvas.addEventListener("contextmenu", (event) => {
 })
 
 window.addEventListener("click", (e) => {
-    console.log("window click event");
     contextMenuOff();
 })
 
+window.addEventListener("keypress", (event) => {
+    if (e.key == "Escape") {
+        contextMenuOff();
+        fullscreenOff();
+    }
+})
+
 Array.from(contextMenu.getElementsByTagName("li")).forEach((i) => {
-    console.log(i);
     i.addEventListener("click", (e) => {
         contextMenuEvent(e.target.id);
     })
 })
 
-// contextMenu.target = buttons[0];
-// contextMenuEvent("save");
+document.getElementById("b_save").addEventListener("click", save);
+document.getElementById("b_load").addEventListener("click", load_event);
+document.getElementById("b_fullscreen").addEventListener("click", fullscreenOn);

@@ -1,6 +1,12 @@
 <style>
-    .wrapper {
+    .page-content .wrapper {
         max-width: 100vw;
+        width: fit-content;
+    }
+
+    .post-header {
+        margin-bottom: unset;
+        width: fit-content;
     }
 
     .collapsible:before {
@@ -12,9 +18,11 @@
     .collapsible-content {
         padding: 0 18px;
         max-height: 0;
+        max-width: 40em;
         overflow: hidden;
         transition: max-height 0.2s ease-out;
         background-color: #f1f1f1;
+        margin-bottom: 30px;
     }
 
     .active:before {
@@ -22,7 +30,11 @@
         content: "\f0d7";
     }
 
-    .interface {
+    #interface-wrapper {
+        background-color: var(--minima-background-color);
+    }
+
+    #interface {
         display: flex;
         width: fit-content;
         margin: auto;
@@ -38,6 +50,7 @@
         margin-top: 11px;
         max-width: 10em;
         height: fit-content;
+        position: relative;
     }
 
     table tr:nth-child(2n) {
@@ -76,6 +89,16 @@
     input[type="file"] {
         font-size: x-small;
         max-width: 20em;
+    }
+
+    #b_fullscreen {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+    #load_file_row {
+        display: none;
     }
 
     .help:before {
@@ -155,17 +178,9 @@
         And this does not require you to understand how they work, only to judge
         if they are "fit".
     </p>
-    <p>This serves as a practical demonstration of the fallacy of the theological
-        "watch analogy" championed, among others, by W. Paley and debunked by
-        C. Dawkins, among others.
-    </p>
     <ul>
         <li>RGB range</li>
-        <li>Save stuff</li>
-        <li>Fullscreen</li>
-        <li>Zoom button position in dark mode</li>
-        <li>Tighter bounds even for title</li>
-        <li>More presets? (yes: crossover)</li>
+         <li>More presets?</li>
         <li>Mobile/small screen tests</li>
         <ul>
             <li>No crossover</li>
@@ -180,14 +195,20 @@
     </ul>
 </div>
 
-<div class="interface">
+<div id="interface-wrapper">
+<div id="interface">
 <canvas id="canvas">
     Some text
 </canvas>
 <table>
     <tbody id="controls">
         <tr>
-            <td colspan="3" id="l_generation">Generation 0</td>
+            <td colspan="3" id="l_generation">
+                Generation 0
+                <button id="b_fullscreen">
+                    <i class="fa fa-arrows-alt" aria-hidden="true" title="Fullscreen"></i>
+                </button>
+            </td>
         </tr>
         <tr>
             <td colspan="2">
@@ -267,8 +288,8 @@
             <td><input type="button" id="b_save" value="Save"></td>
             <td><input type="button" id="b_load" value="Load"></td>
         </tr>
-        <tr>
-            <td colspan="3"><input type="file" id="b_load_file"></td>
+        <tr id="load_file_row">
+            <td colspan="3"><input type="file" id="i_file"></td>
         </tr>
     </tbody>
 </table>
@@ -291,4 +312,5 @@
 </script>
     <script type="module" src="/js/watchmaker/main.js">
 </script>
+</div>
 </div>
