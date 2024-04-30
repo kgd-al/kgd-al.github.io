@@ -70,7 +70,7 @@ export class Evolver {
         let increment = true;
         let new_genomes = null;
         if (ids.length === 1) {
-            increment = ids[0] > 0;
+            increment = (this.generation == 0 || ids[0] > 0);
             let parent = this.genomes[ids[0]];
             new_genomes = [parent];
             while (new_genomes.length < this.genomes.length) {

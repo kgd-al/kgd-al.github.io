@@ -24,6 +24,25 @@ let configToControl = new Map();
 
 function make_controls(){
     let c = controls_html;
+    function getValue(item) {
+        let value = parseFloat(item.value);
+        let min = parseFloat(item.min);
+        let max = parseFloat(item.max);
+        if (min && value < min) {
+            console.log(`Value ${value} < ${min} for ${item.id}`);
+            value = min;
+        }
+        if (max && max < value) {
+            console.log(`Value ${value} > ${max} for ${item.id}`);
+            value = max;
+        }
+        if (value != item.value) {
+            item.value = value.toString();
+            item.style.animationName = "input-error";
+            item.style.animationDuration = "4s";
+        }
+        return value;
+    }
     function input(id, config = {}, field = null, connect = true) {
         // console.log("Configuring input", id)
         let item = document.getElementById(id);
@@ -38,9 +57,11 @@ function make_controls(){
             const value = Config[field];
             if (connect)
                 item.addEventListener("change", (e) => {
-                   console.log(`Value changed for ${id} from Config.${field}=${value} to ${e.target.value}`);
-                   Config[field] = parseFloat(e.target.value);
-                   console.log(">>", Config[field]);
+                    let newValue = getValue(e.target);
+                    if (newValue == Config[field]) return;
+                    // console.log(`Value changed for ${id} from Config.${field}=${value} to ${e.target.value}`);
+                    Config[field] = newValue;
+                    // console.log(">>", Config[field]);
                 });
             item.setAttribute("value", value);
         }
@@ -54,7 +75,7 @@ function make_controls(){
     input("n_buttons",
           {min: 2, max: 5}, "sqrtPop", false);
     input("n_parents",
-          {min: 1, max: .5*Config.sqrtPop**2},
+          {min: 1, max: Math.floor(.5*Config.sqrtPop**2)},
           "parents");
     input("f_mutations_amplitude",
           {min: 0, max: 2, step: .05},
@@ -65,11 +86,11 @@ function make_controls(){
 
     function destructive_event(id, field, f = null) {
         document.getElementById(id).addEventListener("change", (e) => {
-            let v = e.target.value;
+            let v = getValue(e.target);
             if (evolver.generation === 0 ||
                 window.confirm(`Restart evolution with ${field} = ${v}?`)) {
-                Config[field] = parseFloat(v);
-                if (f) f(e.target.value, e);
+                Config[field] = v;
+                if (f) f(v, e);
                 reset();
 
                 console.log(`Restarted evolution with ${field} = ${v}`)
@@ -86,7 +107,7 @@ function make_controls(){
     });
     destructive_event("f_complexity", "initMutationRange");
     destructive_event("n_splines", "splines", Genome.setSplinesCount);
-    destructive_event("n_buttons", "sqrtPop", (v) => {
+    destructive_event("n_buttons", "sqrtPop", () => {
         create_buttons();
         reset();
     });
@@ -110,6 +131,7 @@ function make_controls(){
 function create_buttons() {
     buttons.length = 0;
     let N = Config.sqrtPop;
+    controlItems.get("n_parents").max = Math.floor(.5*N**2);
     for (let i = 0; i < N; i++) {
         for (let j = 0; j < N; j++) {
             let b = new Button(ctx, i * N + j, evolver);
@@ -160,14 +182,44 @@ function draw(){
     buttons.forEach(b => b.draw(ctx))
 }
 
-function fullscreenOn() {
+function toggleFullscreen() {
+    setFullscreen();
+}
+
+function setFullscreen(on = null) {
     let item = document.getElementById("interface-wrapper");
-    if (!document.fullscreenElement)
-        item.requestFullscreen().catch((err) => {
+    let icon = document.getElementById("b_fullscreen_icon");
+    let isFullscreen = (document.fullscreenElement !== null);
+    if (on !== null && isFullscreen === on) {
+        icon.classList.toggle("fa-compress", on);
+        return;
+    }
+
+    if (!isFullscreen) {
+        item.requestFullscreen().then(() => {
+            icon.classList.toggle("fa-compress");
+        }).catch((err) => {
+            console.error(err)
             alert("Fullscreen request rejected");
         });
-    else
+    } else {
+        icon.classList.toggle("fa-compress");
         document.exitFullscreen();
+    }
+}
+
+function collapseControls() {
+    let controls = document.getElementById("controls");
+    if (controls.style.display === "none")
+        controls.style.display = "";
+    else
+        controls.style.display = "none";
+
+    let icon = document.getElementById("b_collapse_icon");
+    icon.classList.toggle("fa-angle-double-right")
+    icon.classList.toggle("fa-angle-double-left")
+
+    resized()
 }
 
 function contextMenuOn(target, x, y) {
@@ -175,6 +227,7 @@ function contextMenuOn(target, x, y) {
     contextMenu.style.left = x + "px";
     contextMenu.style.top = y + "px";
     contextMenu.target = target;
+    console.log("Context menu on at", x, y);
 }
 
 function contextMenuOff() {
@@ -193,12 +246,28 @@ function contextMenuEvent(id) {
     saveBlob(blob, `splinoid-${evolver.generation}-${ix}.svg`);
 }
 
+function onEscape() {
+    contextMenuOff();
+    setFullscreen(false);
+}
+
 function resized() {
     let heightRatio = document.fullscreenElement ? 1 : .9;
+
+    let siblingsWidth = 0;
+    let sibling = canvas.nextElementSibling;
+    while (sibling) {
+        const style = window.getComputedStyle(sibling);
+        siblingsWidth += sibling.getBoundingClientRect().width
+            + parseInt(style.marginLeft) + parseInt(style.marginRight);
+        sibling = sibling.nextElementSibling;
+    }
+
+    const padding = 60;
     let size = Math.min(
-        .9*window.innerWidth - canvas.nextElementSibling.offsetWidth - 5,
+        window.innerWidth - siblingsWidth - padding,
         heightRatio * window.innerHeight)
-    // let size = Math.min(canvas.parentElement.offsetWidth, canvas.parentElement.offsetHeight);
+    // console.log(`Siblings take ${siblingsWidth} with ${padding} global padding. I want ${size}`)
     canvas.style.width = size + "px";
     canvas.width = size;
     canvas.style.height = size + "px";
@@ -219,6 +288,11 @@ function resized() {
     }
 
     Button.update_path(size, bs)
+    //
+    // let controls = document.getElementById("controls");
+    //
+    // let collapse_button = document.getElementById("b_collapse");
+    // collapse_button.style.marginBottom = .5 * (controls.offsetHeight - collapse_button.offsetHeight) + "px";
 
     draw()
 }
@@ -391,13 +465,15 @@ canvas.addEventListener("contextmenu", (event) => {
 
 window.addEventListener("click", (e) => {
     contextMenuOff();
-})
+});
 
-window.addEventListener("keypress", (event) => {
-    if (e.key == "Escape") {
-        contextMenuOff();
-        fullscreenOff();
-    }
+window.addEventListener("keyup", (event) => {
+    console.log("window", event.key);
+    if (event.key === "Escape") onEscape();
+});
+
+document.addEventListener("fullscreenchange", () => {
+    if (document.fullscreenElement === null) setFullscreen(false);
 })
 
 Array.from(contextMenu.getElementsByTagName("li")).forEach((i) => {
@@ -408,4 +484,5 @@ Array.from(contextMenu.getElementsByTagName("li")).forEach((i) => {
 
 document.getElementById("b_save").addEventListener("click", save);
 document.getElementById("b_load").addEventListener("click", load_event);
-document.getElementById("b_fullscreen").addEventListener("click", fullscreenOn);
+document.getElementById("b_fullscreen").addEventListener("click", toggleFullscreen);
+document.getElementById("b_collapse").addEventListener("click", collapseControls);

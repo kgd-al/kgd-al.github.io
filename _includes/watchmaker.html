@@ -47,7 +47,7 @@
     }
 
     table {
-        margin-top: 11px;
+        margin: auto;
         max-width: 10em;
         height: fit-content;
         position: relative;
@@ -91,10 +91,24 @@
         max-width: 20em;
     }
 
+    @keyframes input-error {
+        0%   {background-color: red;}
+        50%   {background-color: red;}
+        100% {background-color: var(--minima-background-color);}
+    }
+
     #b_fullscreen {
         position: absolute;
         top: 0;
         right: 0;
+    }
+
+    #b_collapse {
+        height: fit-content;
+        align-self: center;
+        margin-left: -.5em;
+        transform: translateX(50%);
+        z-index: 1;
     }
 
     #load_file_row {
@@ -179,34 +193,38 @@
         if they are "fit".
     </p>
     <ul>
-        <li>RGB range</li>
-         <li>More presets?</li>
+        <li>RGB range?</li>
+        <li>Offline compatible</li>
+        <li>More presets?</li>
         <li>Mobile/small screen tests</li>
         <ul>
+            <li>Controls menu (instead of table)</li>
             <li>No crossover</li>
         </ul>
     </ul>
 </div>
 </div>
 
+<div id="interface-wrapper">
 <div class="context-menu" id="context-menu">
     <ul>
         <li id="save"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</li>
     </ul>
 </div>
-
-<div id="interface-wrapper">
 <div id="interface">
 <canvas id="canvas">
     Some text
 </canvas>
+<button id="b_collapse" title="Collapse">
+    <i class="fa fa-angle-double-right" aria-hidden="true" id="b_collapse_icon"></i>
+</button>
 <table>
     <tbody id="controls">
         <tr>
-            <td colspan="3" id="l_generation">
-                Generation 0
-                <button id="b_fullscreen">
-                    <i class="fa fa-arrows-alt" aria-hidden="true" title="Fullscreen"></i>
+            <td colspan="3">
+                <span id="l_generation">Generation 0</span>
+                <button id="b_fullscreen" title="Fullscreen">
+                    <i class="fa fa-expand" aria-hidden="true" id="b_fullscreen_icon"></i>
                 </button>
             </td>
         </tr>
