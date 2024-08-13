@@ -48,10 +48,19 @@ minima:
   social_links:
     - platform: github
       user_url: "https://github.com/kgd-al"
+      title: Source code repository
+
+    - platform: orcid
+      user_url: "https://orcid.org/0009-0002-6033-3555"
+      title: ORCID page
+
     - platform: google_scholar
       user_url: "https://scholar.google.com/citations?user=8k1MH20AAAAJ"
-    - platform: youtube
-      user_url: "????"
+      title: List of publications on google scholar
+
+    - platform: vimeo
+      user_url: "https://vimeo.com/godinduboisalife"
+      title: Showcased videos of experimental results
 
 kramdown:
   hard_wrap: false

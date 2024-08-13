@@ -50,8 +50,9 @@
 \fancypagestyle{fancyfirst}{
  \fancyhead{}
  \fancyfoot[L]{\fancysize \En{Updated on} \today{}}
- \fancyfoot[C]{\fancysize \faRefresh \href{https://github.com/kgd-al/CV/raw/master/cv.pdf}{\En{Up-to date version}%
-                                                                                           \Fr{Version \`a jour (Anglais)}}}
+ \fancyfoot[C]{\fancysize \faRefresh \href{https://kgd-al.github.io/download/cv.pdf}
+                                          {\En{Up-to date version}%
+                                           \Fr{Version \`a jour (Anglais)}}}
  \fancyfoot[R]{\fancysize \footnotesize Page \thepage\ \En{of}\Fr{sur} \pageref*{LastPage}}
 }
 \fancyfoot[C]{Page \thepage{} \En{of}\Fr{sur} \pageref*{LastPage}}
@@ -237,10 +238,13 @@
  }
  \\[-.25em]
  
- \itm{}{\En{Publications}}{%
+ \itm{}{\En{Output}}{%
   1 journal article (\emph{Artificial Life}) \\
-  4 international conference articles (\emph{ALife, IEEE ALife, EvoAPP})\\
-  4 international workshops short papers (\emph{ALife, ECAL})%\\
+  5 international conference articles (\emph{ALife, IEEE ALife, EvoAPP})\\
+  5 international workshops short papers (\emph{ALife, ECAL})\\
+  \phantom{0} Scientific software:
+  \href{https://pypi.org/project/abrain/}{ABrain},
+  \href{https://pypi.org/project/amaze-benchmarker/}{AMaze}
 %   1 poster (\emph{ALife})
  }
  \\[.5em]
@@ -254,8 +258,7 @@
   Computational Intelligence Group - \UnivVU \\
   \begin{tabular}{@{}r@{ }l@{}}
    Supervisor:   & Dr. K. Miras \hfill(\mailto{k.dasilvamirasdearaujo@vu.nl}) \\
-  Collaborators: & Dr. A. Kononova \hfill(\mailto{a.kononova@liacs.leidenuniv.nl}) \\
-                 & Dr. D. Mocanu \hfill(\mailto{d.c.mocanu@utwente.nl}) \\
+  Collaborators: & Dr. A. Kononova \hfill(\mailto{a.kononova@liacs.leidenuniv.nl})
   \end{tabular}
  }
  \\[.5em]
@@ -335,7 +338,7 @@
  \itm{Artificial Neural Networks}{}{
   Studying the emergence of various ``cognitive'' capabilities in virtual robots, controlled by a spontaneously differentiated neural network, in response to biologically plausible stimuli.
  }
- \ritm{ann_vfmri_colored}{Virtual fMRI}{IRMf virtuelle}{GodinDubois2021a,GodinDubois2023a}{
+ \ritm{ann_vfmri_colored}{Virtual fMRI}{IRMf virtuelle}{GodinDubois2021a,GodinDubois2023}{
   Extracting stimulus-specific regions of an ANN by applying a virtual equivalent to functional Magnetic Resonance Imaging (fMRI) and building high-level cognitive maps. \\
   \sref{https://github.com/kgd-al/ES-HyperNEAT}{ES-HyperNEAT} (Custom implementation)
  }
@@ -366,7 +369,7 @@
  \ritm{mew}{Developmental morphologies}{Morphologies d\'evelopementales}{Dubois2017,GodinDubois2020a,GodinDubois2019a,GodinDubois2018u}{
   Production of mature, functional virtual plants from a single cell/structure using various genetic encodings (rules-based, L-Systems, Graphtals) in response to environmental constraints.
  }
- \ritm{splinoid_morpho}{Virtual robots}{Robot virtuels}{GodinDubois2023a} {
+ \ritm{splinoid_morpho}{Virtual robots}{Robot virtuels}{GodinDubois2023} {
   Use of genetically parameterized cubic b\'ezier curves to control both static and mobile structures on the perimeter of virtual circular robots. \\
   \sref{https://github.com/kgd-al/Splinoids}{Splinoids} \hfill 
   \sref[Videos]{https://vimeo.com/showcase/9613894}{on Vimeo} \hfill\null
@@ -568,21 +571,6 @@
  \multicolumn{1}{m{\lwidth}}{} & \multicolumn{1}{m{\rwidth-11.6pt}}{} \\*
 \end{sect}%
 \vspace{-\baselineskip}
-\nocite{*}%
-% \textbf{\publipending}
-% \printbibliography[heading=none, type=unpublished]
-\textbf{\publijournal}
-\printbibliography[heading=none, subtype=journal]
-% \En{\newpage}
-\textbf{\publiconference}
-\printbibliography[heading=none, subtype=conference]
-\textbf{\publiworkshop}
-\printbibliography[heading=none, subtype=workshop]
-\textbf{\publiposter}
-\printbibliography[heading=none, subtype=poster]
-\textbf{\publioral}
-\printbibliography[heading=none, subtype=talk]
-\textbf{\publithesis}
-\printbibliography[heading=none, type=thesis]
+\sectionedbibliography
 
 \end{document}

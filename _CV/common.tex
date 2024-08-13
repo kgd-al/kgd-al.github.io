@@ -40,59 +40,65 @@
  \usepackage[T1]{fontenc}
 }{}
 
-\def\publipending{
-  \En{Pending publication}%
-  \Fr{Publication en cours}}
-
-\def\publijournal{
-  \En{International Journal}%
-  \Fr{Journaux Internationaux}%
-  \ (peer-reviewed)}
-  
-\def\publiconference{
-  \En{International conferences}%
-  \Fr{Conf\'erences Internationales}%
-  \ (peer-reviewed)}
-  
-\def\publiworkshop{
-  \En{Workshops}%
-  \Fr{Workshops}}
-
-\def\publiposter{
-  \En{Poster}%
-  \Fr{Poster}}
-
-\def\publioral{
-  \En{Oral presentations}%
-  \Fr{Pr\'esentations orales}}
-
-\def\publithesis{
-  \En{Thesis}%
-  \Fr{Th\`ese}}
-  
-\def\publiclasses{
- journal/\publijournal,
- conference/\publiconference,
- workshop/\publiworkshop,
- poster/\publiposter,
- talk/\publioral,
- thesis/\publithesis
-}
-
 % Classification CNU 27
+
 % Ouvrages
 % Conférences invitées internationales
 % Conférences invitées nationales
+
 % Revues internationales avec comité de lecture
 % Revues nationales avec comité de lecture
+\def\publijournal{
+    \En{Journals}%
+    \Fr{Journaux Internationaux}%
+    \ (peer-reviewed)}
+
 % Chapitres de livre avec comité de lecture
 % Direction d’ouvrages, de revues, actes
 % Conférences internationales avec comité de lecture
 % Conférences nationales avec comité de lecture
+\def\publiconference{
+    \En{International conferences}%
+    \Fr{Conf\'erences Internationales}%
+    \ (peer-reviewed)}
+
 % Workshops/ateliers internationaux avec comité de lecture
 % Workshops/ateliers nationaux avec comité de lecture
+\def\publiworkshop{
+    \En{Workshops}%
+    \Fr{Workshops}}
+
+\def\publiposter{
+    \En{Posters}%
+    \Fr{Posters}}
+
+\def\publitalk{
+    \En{Oral presentations}%
+    \Fr{Pr\'esentations orales}}
+
 % Séminaires invités
 % Démonstrations
 % Conférences sans comité de lecture
 % Brevets, productions logicielles, mise à disposition de données.
+\def\publisoftware{
+    \En{Softwares and datasets}%
+    \Fr{Logiciels, mise à disposition de données}}
+
 % Autres (rapports, expertises, etc)
+\def\publithesis{
+  \En{Thesis}%
+  \Fr{Th\`ese}}
+  
+\input{_bibliography_sections}
+
+\newcommand\sectionedbibliography{
+ \nocite{*}
+
+ % More breathing room
+ \emergencystretch=1em
+
+ \foreach \subtype/\text in \publiclasses {
+  \section*{\text}
+  \printbibliography[heading=none, subtype=\subtype]
+ }
+}

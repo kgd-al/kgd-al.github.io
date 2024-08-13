@@ -1,8 +1,6 @@
 \documentclass{article}
 \input{common}
 
-\newcommand{\docite}[1]{$\bullet$ \fullcite{#1}}
-
 \begin{document}
 \begingroup
  \centering
@@ -11,11 +9,5 @@
  \Fr{\LARGE Publications en date du \today}
  \vspace*{1\baselineskip}
 \endgroup
-
-\nocite{*}
-
-\foreach \subtype/\text in \publiclasses {
- \section*{\text}
- \printbibliography[heading=none, subtype=\subtype] 
-}
+\sectionedbibliography
 \end{document}

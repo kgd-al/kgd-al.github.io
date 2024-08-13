@@ -133,6 +133,22 @@ ol.bibliography li + li { /* 10px between each two adjacent li's */
   white-space: nowrap;
 }
 
+.biblio-table {
+  border: none;
+}
+
+.biblio-table td {
+  border: none;
+}
+
+.biblio-table tr:nth-child(2n) {
+  background-color: unset;
+}
+
+.biblio-table tr:hover {
+  background-color: var(--minima-table-zebra-color);
+}
+
 // ---------------------------------------------------------
 
 // Mobile defaults

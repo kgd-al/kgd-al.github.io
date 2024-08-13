@@ -9,4 +9,6 @@ vendor
 *.log
 resources/apets/diagram.pdf
 
+_CV/_bibliography_sections.tex
+
 Gemfile.lock
