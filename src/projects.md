@@ -24,3 +24,4 @@ Either by creating Python bindings or by completely porting the code, the Pynoid
 - Impact of human teacher on interactive Reinforcement Learning
 - CNN and fully discrete agents in [AMaze](/software#amaze)
 - CPPNs encoding for body-brain co-evolution in Evolutionary Robotics
+- Extending CPPNs with cell-types for multimodal I/O
