@@ -11,9 +11,9 @@ scripts=$(dirname $0)
 source $scripts/common.sh
 date > $log
 
-$scripts/build.sh | sed 's/^/> /'
-$scripts/proof.sh | sed 's/^/> /'
-$scripts/clean.sh | sed 's/^/> /'
+$scripts/build.sh | sed 's/^/> /' || exit 1
+$scripts/proof.sh | sed 's/^/> /' || exit 2
+$scripts/clean.sh | sed 's/^/> /' || exit 3
 
 if [ "$1" != "test" ]
 then

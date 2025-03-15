@@ -59,6 +59,12 @@ log(){
   message 32 "$1"
 }
 
+if ! command -v bibtex2html -h >/dev/null
+then
+  echo "Missing bibtext2html. Please install it via apt"
+  exit 100
+fi
+
 cvfolder=$(find . -name "cv.tex" -printf '%h')
 cd $cvfolder
 wd=$(pwd)
@@ -135,7 +141,7 @@ then
     --remove type \
     $library -ob library.bib 2> >(grep -v "No citation file output")
 
-  grep -v -e "^$" -e "@comment" cv.bib | while IFS= read line
+  while IFS= read line
   do
 #    echo $line >&2
     print="yes"
@@ -144,7 +150,7 @@ then
     then
       type=$(sed 's/^@\(.*\){.*/\1/' <<< $line)
       citekey=$(sed 's/.*{\(.*\),/\1/' <<< $line)
-      key=$(sed 's/.*Dubois\(.*\),/\1/' <<< $line | lower)
+      key=$(sed 's/.*{[[:alpha:]]\+\(.*\),/\1/' <<< $line | lower)
     fi
 
     if [[ $line =~ "type" ]]
@@ -190,7 +196,7 @@ then
       [ -n "$print" ] && echo "$line"
     fi
 
-  done > ~cv.bib
+  done < <(grep -v -e "^$" -e "@comment" cv.bib)  > ~cv.bib
   mv ~cv.bib cv.bib
 
   log "Extracted publications from $library"
