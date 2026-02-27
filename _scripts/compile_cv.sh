@@ -265,19 +265,19 @@ fi
 local="<i class='fa fa-download'></i>"
 remote="<i class='fa fa-external-link'></i>"
 target=$(find .. -type d -wholename "*/$sources/$autogen")
-bibtex2html --nodoc -nf local "$local" -r -d -revkeys \
-  -o $target/publications cv.bib
+bibtex2html --nodoc -nf local "$local" -o $target/publications cv.bib
 if [ $? -ne 0 ]
 then
   error "Error while transforming bib to html"
   exit 3
 fi
 
-sed -e "s|../$sources/$autogen/publications_bib.html|/publications/bib|" \
-    -e "s|>.pdf</|>$remote</|" \
-    -e "s|.</em></p>| on $(date -Iseconds)&|" \
-    -e "s|Kevin[^,]*Dubois|<b>&</b>|" \
-    $target/publications.html \
+tr '\n' '\t' < $target/publications.html \
+  | sed -e "s|../$sources/$autogen/publications_bib.html|/publications/bib|g" \
+    -e "s|>.pdf</|>$remote</|g" \
+    -e "s|.</em></p>| on $(date -Iseconds)&|g" \
+    -e "s|Kevin[^,.]*Dubois|<b>&</b>|g" \
+  | tr '\t' '\n' \
   | awk '
     /\[&nbsp/{hold=1;data=""}
     !hold{print}
@@ -301,13 +301,6 @@ sed -e 's/@comment.*//' \
    > ~publications_bib.html
 mv ~publications_bib.html $target/publications_bib.html
 
-# \
-#| while read item
-#do
-#  key=$(grep -o 'name="[^"]*"' <<< $item | sed 's/.*"\(.*\)"/\1/')
-#  echo $key "$item"
-#done
-
 items=bibliography_items.html
 tr '\n' '\t' < $target/publications.html | sed -e 's|</tr>|&\n|g' -e 's|<tr|\n&|' > $items
 (
@@ -319,7 +312,7 @@ tr '\n' '\t' < $target/publications.html | sed -e 's|</tr>|&\n|g' -e 's|<tr|\n&|
     while read key
     do
       grep "<a name=\"$key\">" $items
-    done < <(sort -r .tmp)
+    done < <(sed 's/\([A-Za-z]*\)\([0-9][0-9]*.*\)/\1\2 \2/' .tmp | sort -k 2,2r | cut -d ' ' -f 1)
     printf "</table>\n"
     rm .tmp
   done

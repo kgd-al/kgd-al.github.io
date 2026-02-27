@@ -11,7 +11,7 @@
 \usepackage{hyperref}
 
 % The list of publications (with links)
-\usepackage[backend=biber,maxcitenames=1,doi=true,url=true,sorting=ydnt,giveninits=true,defernumbers=true]{biblatex}
+\usepackage[backend=biber, maxbibnames=99, doi=true, url=true, sorting=ydnt, giveninits=true, defernumbers=true]{biblatex}
 \addbibresource{cv.bib}
 
 % Only use url if doi is not present
@@ -24,6 +24,18 @@
     }  
   }
 }
+
+% Bold name (just for me)
+\def\firstname{Kevin}
+\def\firstinit{K.}
+\def\birthname{Dubois}
+\def\lastname{Godin-Dubois}
+\newcommand{\ifme}[1]{
+  \ifboolexpr{ ( test {\ifdefequal{\firstname}{\namepartgiven}} or test {\ifdefequal{\firstinit}{\namepartgiven}} ) and ( test {\ifdefequal{\lastname}{\namepartfamily}} or test {\ifdefequal{\birthname}{\namepartfamily}} ) }
+  {\mkbibbold{#1}}{#1}%
+}
+\renewcommand{\mkbibnamegiven}[1]{\ifme{#1}}
+\renewcommand{\mkbibnamefamily}[1]{\ifme{#1}}
 
 % Multiple language
 
