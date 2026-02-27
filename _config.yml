@@ -62,6 +62,10 @@ minima:
       user_url: "https://vimeo.com/godinduboisalife"
       title: Showcased videos of experimental results
 
+# Minima use deprecated sass constructs. Try to silence them
+sass:
+  quiet_deps: true
+
 kramdown:
   hard_wrap: false
   parse_span_html: false

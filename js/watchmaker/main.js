@@ -25,23 +25,26 @@ let configToControl = new Map();
 function make_controls(){
     let c = controls_html;
     function getValue(item) {
-        let value = parseFloat(item.value);
-        let min = parseFloat(item.min);
-        let max = parseFloat(item.max);
-        if (min && value < min) {
-            console.log(`Value ${value} < ${min} for ${item.id}`);
-            value = min;
-        }
-        if (max && max < value) {
-            console.log(`Value ${value} > ${max} for ${item.id}`);
-            value = max;
-        }
-        if (value != item.value) {
-            item.value = value.toString();
-            item.style.animationName = "input-error";
-            item.style.animationDuration = "4s";
-        }
-        return value;
+        if (!("options" in item)) {
+            let value = parseFloat(item.value);
+            let min = parseFloat(item.min);
+            let max = parseFloat(item.max);
+            if (min && value < min) {
+                console.log(`Value ${value} < ${min} for ${item.id}`);
+                value = min;
+            }
+            if (max && max < value) {
+                console.log(`Value ${value} > ${max} for ${item.id}`);
+                value = max;
+            }
+            if (value != item.value) {
+                item.value = value.toString();
+                item.style.animationName = "input-error";
+                item.style.animationDuration = "4s";
+            }
+            return value;
+        } else
+            return item.value;
     }
     function input(id, config = {}, field = null, connect = true) {
         // console.log("Configuring input", id)
