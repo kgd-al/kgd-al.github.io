@@ -100,12 +100,11 @@ while getopts "h?l:abce:f" opt; do
     esac
 done
 
-
 [ -n "$clean" -a -n "$cleanbefore" ] && clean
 
 if [ -n "$library" ]
 then
-  bib2bib -q -r -s year -s '$key' \
+  bib2bib -q -r -s year -s '$key' --remove abstract --remove file \
       -c 'author : "GodinDubois, Kevin*" or author : "Dubois, Kevin"' \
        $library 2> >(grep -v -e "Sorting...done" -e "No citation file output") |
     sed -e 's|presentation = \(.*\)|addendum = {Presentation: \\\\url{\1}}|' > cv.bib
@@ -116,7 +115,7 @@ then
     ["dataset"]="software"
   )
   ok=0
-  for key in $(grep type cv.bib | field | sort | uniq | lower)
+  for key in $(grep '^ *type' cv.bib | field | sort | uniq | lower)
   do
     value=${zotero_types_to_bibtex[$key]-$key}
     macro=$(grep ".def.publi$value{" common.tex || true)
@@ -153,7 +152,7 @@ then
       key=$(sed 's/.*{[[:alpha:]]\+\(.*\),/\1/' <<< $line | lower)
     fi
 
-    if [[ $line =~ "type" ]]
+    if [[ "$line" =~ ^\ *type ]]
     then
       subtype=$(field <<< $line | lower)
       [ $type != "misc" ] && print=""
@@ -266,8 +265,13 @@ fi
 local="<i class='fa fa-download'></i>"
 remote="<i class='fa fa-external-link'></i>"
 target=$(find .. -type d -wholename "*/$sources/$autogen")
-bibtex2html -q --nodoc -nf local "$local" -r -d -revkeys \
+bibtex2html --nodoc -nf local "$local" -r -d -revkeys \
   -o $target/publications cv.bib
+if [ $? -ne 0 ]
+then
+  error "Error while transforming bib to html"
+  exit 3
+fi
 
 sed -e "s|../$sources/$autogen/publications_bib.html|/publications/bib|" \
     -e "s|>.pdf</|>$remote</|" \

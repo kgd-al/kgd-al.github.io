@@ -1,17 +1,17 @@
-- src: /resources/amaze/sample.gif
-  file: /research/amaze.html
-
-- src: /resources/banner/ann.gif
-  file: /research/ne.html
-
 - src: /resources/apets/diagram.png
   file: /projects/apets.html
+
+- src: /resources/banner/ann.gif
+  file: /projects/abrain.html
 
 - src: /resources/banner/amaze.gif
   file: /projects/amaze.html
 
 - src: /resources/banner/ann.gif
-  file: /projects/abrain.html
+  file: /research/ne.html
+
+- src: /resources/amaze/sample.gif
+  file: /research/amaze.html
 
 - src: /resources/banner/amaze.gif
   file: /software.html
