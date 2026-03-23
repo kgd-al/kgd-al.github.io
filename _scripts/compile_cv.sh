@@ -205,12 +205,12 @@ fi
 
 if [ -n "$cv" ]
 then
-  for l in misc/academicons_rgate misc/academicons_gscholar
+  for l in misc/academicons_*.tex
   do
-    if [ ! -f $l.pdf ]
+    if [ ! -f $(dirname $l)/$(basename $l .tex).pdf ]
     then
       cd $(dirname $l)
-      lualatex $(basename $l).tex
+      lualatex $(basename $l)
       cd $wd
       log "Compiled misc file $l\n"
     fi
