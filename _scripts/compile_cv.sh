@@ -195,7 +195,7 @@ then
       [ -n "$print" ] && echo "$line"
     fi
 
-  done < <(grep -v -e "^$" -e "@comment" cv.bib)  > ~cv.bib
+  done < <(grep -v -e "^$" -e "@comment" -e "@preamble" cv.bib)  > ~cv.bib
   mv ~cv.bib cv.bib
 
   log "Extracted publications from $library"
