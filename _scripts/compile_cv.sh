@@ -130,10 +130,10 @@ then
   [ $ok -eq 0 ] || exit 11
 
   (
-  echo "\\def\\publiclasses{"
-  grep "^.def.publi.*{$" common.tex | cut -c 11- | tr -d '{' | sed 's|.*| &/\\publi&,|'
-  echo "}"
-  ) > _bibliography_sections.tex
+    echo "\\def\\publiclasses{"
+    grep "^.def.publi.*{$" common.tex | cut -c 11- | tr -d '{' | sed 's|.*| &/\\publi&,|'
+    echo "}"
+  ) | tr '\n' '\0' | sed 's/,\x0}/\x0}/' | tr '\0' '\n' > _bibliography_sections.tex
 
   bib2bib -q \
     --remove abstract --remove file --remove keywords --remove mendeley-tags \
