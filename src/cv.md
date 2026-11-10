@@ -5,7 +5,7 @@ title: CV
 permalink: /cv
 ---
 
-[pdf version](/download/cv.pdf)
+pdf versions: [research](/download/cv.pdf) [teaching](/download/cv-teaching.pdf)
 
 <style>
 body {
@@ -18,7 +18,7 @@ p {
 
 ## Positions
 
-* [2022-now] Postdoc<br/>
+* [2022-2026] Postdoc<br/>
     *NeuroEvolution and Reinforcement Learning for Artificial pets*<br/>
     Amsterdam, The Netherlands
 
