@@ -45,26 +45,25 @@ show_excerpts: true
 
 minima:
   skin: auto
+  hide_site_feed_link: true
   social_links:
-    - platform: github
-      user_url: "https://github.com/kgd-al"
-      title: Source code repository
-
-    - platform: orcid
-      user_url: "https://orcid.org/0009-0002-6033-3555"
-      title: ORCID page
-
-    - platform: google_scholar
-      user_url: "https://scholar.google.com/citations?user=8k1MH20AAAAJ"
-      title: List of publications on google scholar
-
-    - platform: vimeo
-      user_url: "https://vimeo.com/godinduboisalife"
-      title: Showcased videos of experimental results
+    - title: Source code repository
+      icon: github
+      url: "https://github.com/kgd-al"
+    - title: ORCID page
+      icon: orcid
+      url: "https://orcid.org/0009-0002-6033-3555"
+    - title: List of publications on google scholar
+      icon: google-scholar
+      url: "https://scholar.google.com/citations?user=8k1MH20AAAAJ"
+    - title: Showcased videos of experimental results
+      icon: youtube
+      url: "https://www.youtube.com/@kgd-al"
 
 # Minima use deprecated sass constructs. Try to silence them
 sass:
   quiet_deps: true
+  silence_deprecations: ['import'] # minima still uses @import; revisit before Dart Sass 3.0
 
 kramdown:
   hard_wrap: false
@@ -77,9 +76,6 @@ scholar:
   bibliography: library.bib
 #  bibliography_template: scholar_bib
   missing_reference: <span class="error">(missing reference)</span>
-
-feed:
-  disable_in_development: true
 
 defaults:
   -

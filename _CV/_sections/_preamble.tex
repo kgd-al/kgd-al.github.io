@@ -47,18 +47,21 @@
 \fancyfoot[C]{\fancysize \thepage\ \En{of}\Fr{sur} \pageref*{LastPage}}
 \fancyhead{}
 
+\newcommand{\uptodatelink}[1]{
+ \ifresearchcv
+  \href{https://kgd-al.github.io/download/cv.pdf}{#1}
+ \else
+  \href{https://kgd-al.github.io/download/cv-teaching.pdf}{#1}
+ \fi
+}
+
 \fancypagestyle{fancyfirst}{
  \fancyhead{}
  \fancyfoot[L]{\fancysize \En{Updated on} \today{}}
  \fancyfoot[C]{
   \fancysize \faRefresh{}
-%   \ifresearchcv
-   \href{https://kgd-al.github.io/download/cv.pdf}
-%   \else
-%    \href{https://kgd-al.github.io/download/cv-teaching.pdf}
-%   \fi
-  {\En{Up-to date version}%
-  \Fr{Version \`a jour (Anglais)}}}
+  \uptodatelink{\En{Up-to date version}\Fr{Version \`a jour (Anglais)}}
+ }
  \fancyfoot[R]{\fancysize \footnotesize Page \thepage\ \En{of}\Fr{sur} \pageref*{LastPage}}
 }
 \fancyfoot[C]{Page \thepage{} \En{of}\Fr{sur} \pageref*{LastPage}}

@@ -15,31 +15,34 @@ The [Splinoids](/software#splinoids) have an incredibly complex morphological sp
 However, their current implementation in C++ drastically limits their interoperability with other tools.
 Either by creating Python bindings or by completely porting the code, the Pynoids/sPlYnoids/Spynoids (pun is a work in progress) would be able to colonize a more favorable ecosystem.
 
-### BSc/MSc projects {#vu:projects}
+## BSc/MSc projects {#vu:projects}
 
+### Tentative subjects
+*Please contact me if you are interested in doing a BSc/MSc thesis on any of these*
+
+- Extending CPPNs with cell-types for multimodal I/O
 - Open-Ended Evolutionary Robotics (~1 student each):
   - Meeting
   - Mating
   - Environment
+- CPPNs encoding for body-brain co-evolution in Evolutionary Robotics
 - Impact of human teacher on interactive Reinforcement Learning
 - CNN and fully discrete agents in [AMaze](/software#amaze)
-- CPPNs encoding for body-brain co-evolution in Evolutionary Robotics
-- Extending CPPNs with cell-types for multimodal I/O
 
-#### Past projects
+### Past projects
 
-##### Evolutionary Computing
+#### Evolutionary Computing
 
 - On the Impact of Morphological Encoding for Evolutionary Robotics in ARIEL, *submitted to Evostar 2027*
 
-##### Masters
+#### Masters
 
 - From Skills to Survival: Hierarchical Composition of Neuroevolved Skills for Long-Horizon Reinforcement Learning, *submitted to EvoStar 2027*
 - Impact of the human agent in interactive Reinforcement Learning
 training
 - The Impacts of Scaffolding Target Environments in Quality Diversity for NeuroEvolution in Evolutionary Robotics
 
-##### Bachelors
+#### Bachelors
 
 - Collective Transport of Non-Convex Objects by Swarm Robots: The Role of Stochastic Reshuffling in Overcoming Deadlock
 - Bloating in GRN encoding for Revolve robots

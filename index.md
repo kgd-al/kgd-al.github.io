@@ -8,6 +8,10 @@ banner: True
 permalink: /
 ---
 
+<img class="subfolder-image"
+        src="logo/logo_large.svg"
+        alt="New logo"/>
+
 My research revolves around Artificial Life in its myriad forms: from 
 Morphogenetic Engineering to Open-Ended Evolution, from NeuroEvolution to 
 Artificial Cognition, from swarms to artificial pets.
