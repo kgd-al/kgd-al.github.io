@@ -1,0 +1,245 @@
+\newif\ifshowprogress\showprogressfalse
+\newif\ifresearchcv
+
+% To draw the skill circles
+\usepackage{tikz}
+\usetikzlibrary{calc,fadings,shadings}
+
+\tikzfading[name=fade out,inner color=transparent!0,outer color=transparent!100]
+\newcommand{\skilldisk}[1]{%
+ \def\sbcolor{red}
+ \hspace{.5em}%
+ \def\R{.15cm}%
+ \begin{tikzpicture}[remember picture]%
+  \pgfmathsetmacro\A{90-3.6*#1}
+  \def\bgcolor{gray!40}
+  \def\fgcolor{\sbcolor!50}
+
+  \fill [white] (0,0) circle (\R);
+
+  \shade[ball color = \bgcolor, opacity = 0.4] (0,0) circle (\R);
+  \shade[ball color = \fgcolor, opacity = 0.8] (0,\R) arc (90:\A:\R) -- (0,0) -- cycle;
+ \end{tikzpicture}%
+}
+
+% Main tabular layout
+% \usepackage{booktabs} % Surprisingly un-used here
+\usepackage{longtable} % Pagebreak-able tables
+\usepackage{makecell} % Encapsulated tabular cell contents
+
+\usepackage{url}
+
+% The euro symbol
+\usepackage{eurosym}
+
+% Symbols in the contact section
+\usepackage{fontawesome}
+
+% To compute available rspace based on lspace
+\usepackage{calc}
+
+% Put pages number in footer
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+
+\def\fancysize{\small}
+
+\fancyfoot[C]{\fancysize \thepage\ \En{of}\Fr{sur} \pageref*{LastPage}}
+\fancyhead{}
+
+\fancypagestyle{fancyfirst}{
+ \fancyhead{}
+ \fancyfoot[L]{\fancysize \En{Updated on} \today{}}
+ \fancyfoot[C]{
+  \fancysize \faRefresh{}
+%   \ifresearchcv
+   \href{https://kgd-al.github.io/download/cv.pdf}
+%   \else
+%    \href{https://kgd-al.github.io/download/cv-teaching.pdf}
+%   \fi
+  {\En{Up-to date version}%
+  \Fr{Version \`a jour (Anglais)}}}
+ \fancyfoot[R]{\fancysize \footnotesize Page \thepage\ \En{of}\Fr{sur} \pageref*{LastPage}}
+}
+\fancyfoot[C]{Page \thepage{} \En{of}\Fr{sur} \pageref*{LastPage}}
+
+\renewcommand{\headrulewidth}{0pt}
+\pagestyle{fancy}
+\thispagestyle{fancyfirst}
+
+% For (excessively) pretty underlining
+\usepackage{contour}
+\usepackage[normalem]{ulem}
+\renewcommand{\ULdepth}{2pt}
+\contourlength{0.8pt}
+\newcommand{\prettyuline}[1]{%
+ \uline{\phantom{#1}}%
+ \llap{\contour{white}{#1}}%
+}
+
+% Helper for the mail links
+\def\mailto#1{\small\href{mailto:#1}{\texttt{#1}}}
+
+% Pdf meta-data
+\En{\def\me{Kevin Godin-Dubois}}
+\Fr{\def\me{K\'evin Godin-Dubois}}
+\makeatletter
+\hypersetup{
+ pdfinfo={
+  Author={\me},
+  Title={\me{} - CV}
+ },
+ colorlinks=true,
+ linkcolor=cyan,
+ urlcolor=blue,
+ citecolor=green!75!black,
+}
+\makeatother
+
+% No indent
+\setlength\parindent{0pt}
+
+% =============================================================================
+% Draft section
+
+% To monitor file inclusion (in git)
+\listfiles
+
+% Overfull hbox debugging
+\overfullrule=1mm
+
+% Prepare lengths
+\newlength\lwidth
+\setlength\lwidth{.2\textwidth}
+\newlength\cwidth
+\setlength\cwidth{\dimexpr2\tabcolsep}
+\newlength\rwidth
+\setlength\rwidth{\dimexpr\textwidth-\lwidth-\cwidth-.4pt}
+
+% Local variables
+\newlength\titlewidth
+\newlength\titleoffset
+
+\gdef\sectstatus{}
+\newenvironment{sect}[2][{\\*[0pt]}]{%
+ \def\title{\Large\prettyuline{\texttt{\textbf{#2}}}}%
+ \setlength{\titlewidth}{\widthof{\title}}%
+ \setlength{\titleoffset}{\maxof{0pt}{\lwidth-\titlewidth*\real{0.5}}}%
+%  lwidth: \the\lwidth \\
+%  title width: \the\titlewidth\\
+%  title offset: \the\titleoffset \\
+%
+ \begin{longtable}{@{}c|c@{}}%\\\\[-.75cm]
+  \multicolumn{2}{l}{\sectstatus\hspace{\titleoffset}\title}\vspace{-2.9pt}\\*#1%\\[-10pt]
+}{%
+ \end{longtable}%
+ \gdef\sectstatus{}%
+}%
+
+\def\dbgrule{}
+% \def\dbgrule{\hline}
+\newcommand{\itm}[3]{%
+\dbgrule%
+ \makecell[t{p{\lwidth}}]{%
+  \raggedleft%
+  \ifx\hfuzz#1\hfuzz\else%
+   \textbf{#1}%
+   \ifx\hfuzz#2\hfuzz\else\\\fi%
+  \fi%
+  #2%
+ } & \makecell[t{p{\rwidth}}]{#3} \\
+\dbgrule
+}
+
+\def\di{$\bullet$\ }
+\def\dii{\hspace{1.5em} $\circ$\ }
+\renewcommand{\labelitemi}{\di}
+\renewcommand{\labelitemii}{\dii}
+
+% ========================================
+\def\UnivUPSShort{%
+  \En{Toulouse III University}%
+  \Fr{Universit\'e Toulouse III Paul Sabatier}%
+}
+\def\UnivUPS{\UnivUPSShort, France}
+% ========================================
+\def\UnivCapitoleShort{%
+  \En{Toulouse I University}%
+  \Fr{Universit\'e Toulouse I Capitole}%
+}
+\def\UnivCapitole{\UnivCapitoleShort, France}
+% ========================================
+\def\UnivVUShort{Vrije Universiteit Amsterdam}
+\def\UnivVU{\UnivVUShort, The Netherlands}
+% ========================================
+
+% ========================================
+% Format skills
+\newcommand{\formatskill}[2]{\skilldisk{#2} \small#1}
+\def\cols(#1)#2{%
+ \itm{}{#1}{%
+  \foreach \p/\l in {#2} {%
+   \begin{minipage}{.32\rwidth}\formatskill{\l}{\p}\end{minipage}%
+  }%
+ }%
+}
+
+% ========================================
+
+% \usepackage{showframe}
+
+% Display width repartition
+\def\dbgshowwidths{
+ \tikz [remember picture, overlay]
+  \node at (current page.north) [anchor=north]
+   {{\color{red}\rule{\lwidth}{1mm}}{\color{green}\rule{\cwidth}{1mm}}{\color{blue}\rule{\rwidth}{1mm}}};
+}
+\reversemarginpar
+
+\ifshowprogress
+ \usepackage{marginnote}
+%  \usepackage{showframe}
+ \def\ok{\gdef\sectstatus{%
+  \tikz[overlay]\fill[green,draw=green!50!black,xshift=-1.2cm]
+    (0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
+ }
+ \def\nok{\gdef\sectstatus{%
+  \tikz[overlay]
+   \fill[red,draw=red!50!black,scale=1,xshift=-1.2cm,yshift=-.2cm,rotate around={45:(.5,.35)}]%
+    (.4,.75) -- (.6,.75) -- (.6,.45) -- (.9,.45) -- (.9,.25) -- (.6,.25)%
+    -- (.6,-.05) -- (.4,-.05) -- (.4,.25) -- (.1,.25) -- (.1,.45) -- (.4,.45) -- cycle;%
+ }}%
+\else
+ \def\ok{}\def\nok{}
+\fi
+
+% ========================================
+
+\newcommand{\ritm}[5]{%
+ \itm{}{%
+  \begin{minipage}[t]{\lwidth}%
+   \vspace{0pt}%
+   \raggedleft
+   \includegraphics[width=\textwidth, height=4em, keepaspectratio]{#1}%
+  \end{minipage}%
+ }{%
+  \begin{minipage}[t]{\rwidth}%
+   \vspace{0pt}\small%
+   \cite{#4}\ %
+   \textsc{\En{#2}\Fr{#3}} \\%
+   #5%
+  \end{minipage}%
+ }
+}
+\newcommand{\sref}[3][Software]{\textbf{#1:} \href{#2}{#3}}
+
+\def\teachings{\En{Teachings}\Fr{Enseignements}}
+\def\internship{\En{Internship}\Fr{Stage}s}
+\def\months{\En{months}\Fr{mois}}
+
+\def\websiteprojects{https://kgd-al.github.io/projects/\#vu:projects}
+
+% ========================================
+
+\graphicspath{{../resources/cv/}}
+

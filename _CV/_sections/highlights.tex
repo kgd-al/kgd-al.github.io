@@ -1,0 +1,136 @@
+\def\highlightresearch{
+ \itm{\En{Research}\Fr{Recherche}}{}{%
+  \ifresearchcv
+   \large\itshape
+  \fi
+  {\En{Artificial Life: Morphology, Cognition \& Interaction}}
+ }
+ \\[-.5em]
+
+\ifresearchcv
+ \itm{}{\En{Main fields}\\}{%
+  \hfill
+  \foreach \i/\lEn/\lFr in {
+   ann_vfmri_colored/Artificial Neural Networks/??,
+%     phylogenetics_colored/Species Dynamics/Dynamiques d'esp\`eces,
+   splinoids_morphos/Morphogenetic Engineering/Morphogenetic Engineering,
+   kilo/Evolutionary Robotics/Robotique \`Evolutionnaire
+  } {
+   \begin{minipage}[t]{.22\textwidth}
+    \centering
+     \includegraphics[width=.9\textwidth]{\i} \\
+    \small\En{\lEn}\Fr{\lFr}
+   \end{minipage}
+   \hfill
+  }
+ }
+ \\[-.25em]
+\fi
+
+ \itm{}{\En{Output}}{%
+  3 journal articles (\emph{Artificial Life, Frontiers, JOSS}) \\
+  7 international conference articles (\emph{ALife, IEEE ALife, EvoAPP...})\\%
+  7 international workshops short papers (\emph{ALife, ECAL, AAAI})\\
+  \phantom{0} Scientific software:
+  \href{https://pypi.org/project/abrain/}{ABrain},
+  \href{https://pypi.org/project/amaze-benchmarker/}{AMaze},
+  \href{https://github.com/ci-group/revolve2}{Revolve2},
+  \href{https://github.com/libgoncalv/SHARPIE}{SHARPIE}
+%   1 poster (\emph{ALife})
+ }
+ \\[.5em]
+}
+
+\def\highlightteaching{
+ \itm{\En{Teaching}}{}{9 years ($\sim$800 hours)}
+ \\[-.5em]
+
+\unless\ifresearchcv
+ \itm{}{Locations}{
+  \UnivCapitoleShort{} \& \UnivUPS;\\ \UnivVU
+ }
+ \\[-.5em]
+
+ \itm{}{Missions}{
+  Course design \& administration, TA coordination, lectures \& lab teaching, exam design \& grading, project \& thesis supervision \dots
+ }
+ \\[-.5em]
+\fi
+
+ \itm{}{Computer\\ Science}{
+  Research thesis supervision (8 BSc, 3 MSc, \href{\websiteprojects}{full list}) \\
+  Learning Machines, NeuroEvolution \\
+  Programming languages: Python, C, R \\
+  Algorithms, Data Structures, Information theory \\
+  Programming projects \\
+ }
+ \\[-.5em]
+
+ \itm{}{Generalists}{
+  Data Science tools and languages \\
+  Database modeling, SQL
+ }
+ \\[.25em]
+}
+
+\def\highlightpositions{
+ \itm{Positions}{}{}
+ \\[-.5em]
+
+ \itm{{\normalfont Postdoctoral}}{\emph{Oct. 2026\\Nov. 2022}}{%
+  Computer Science / Evolutionary Robotics \\
+  \emph{``NeuroEvolution and Reinforcement Learning for Embodied Robots''} \\
+  Computational Intelligence Group - \UnivVU \\
+  \begin{tabular}{@{}r@{ }l@{}}
+   Supervisor:   & Dr. A. Yaman \hfill(\mailto{a.yaman@vu.nl}) \\
+  Collaborators: & Dr. A. Kononova \hfill(\mailto{a.kononova@liacs.leidenuniv.nl})
+  \end{tabular}
+ }
+ \\[.5em]
+
+ \itm{{\normalfont Postdoctoral}}{\emph{Oct. 2022\\Jul. 2020}}{%
+  Computer Science / Artificial Intelligence \\
+  \emph{``Emergent cognitive architectures in virtual embodied robots''} \\
+  REVA Team, IRIT - \UnivCapitole \\
+  Supervisors: Pr. Y. Duthen \hfill(\mailto{yves.duthen@irit.fr}) \\
+  \phantom{Supervisors: }Pr. S. Cussat-Blanc \hfill(\mailto{sylvain.cussat-blanc@irit.fr})
+ }
+ \\[.5em]
+
+ \itm{\normalfont PhD}{\emph{Jul. 2020\\Sep. 2016}}{%
+  Computer Science / Artificial Life \\
+  \emph{``Environment-driven speciation: long term interactions in artificial plant communities''} \\
+  REVA Team, IRIT - \UnivCapitole \\
+  Supervisors: Pr. Y. Duthen \hfill(\mailto{yves.duthen@irit.fr}) \\
+  \phantom{Supervisors: }Pr. S. Cussat-Blanc \hfill(\mailto{sylvain.cussat-blanc@irit.fr})
+ }
+%  \\[.25em]
+}
+
+\def\highlightskills{
+ \itm{Skills}{}{}
+ \itm{}{Programming}{
+  Fluent: \cpp, Bash, Python, \LaTeX \\
+  Working Knowledge: C, Java, R, VB, VBA, JavaScript \\
+  Frameworks: (Py)Qt, MuJoCo
+ }\\[-.75em]
+ \itm{}{Technical}{Evolutionary Algorithms, Machine Learning, Multi-Agents Systems, High-Performance Computing}
+ \\[-.75em]
+ \itm{}{Languages}{French (native), English (professional command)}
+}
+
+\begin{sect}{Highlights}
+ \ifresearchcv
+  \highlightresearch
+  \highlightpositions
+  \highlightteaching
+ \else
+  \highlightteaching
+  \highlightpositions
+  \highlightresearch
+ \fi
+ \highlightskills
+%  \\[.5em]
+%  \newpage
+
+\end{sect}

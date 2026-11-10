@@ -171,5 +171,14 @@ ol.bibliography li + li { /* 10px between each two adjacent li's */
   }
 }
 
+// ---------------------------------------------------------
+
+a.anchor-link { visibility: hidden; text-decoration: none; margin-left: .3em; }
+h1:hover > a.anchor-link, h2:hover > a.anchor-link,
+h3:hover > a.anchor-link, h4:hover > a.anchor-link,
+h5:hover > a.anchor-link, h6:hover > a.anchor-link { visibility: visible; }
+
+// ---------------------------------------------------------
+
 @import "navigation";
 @import "gallery";

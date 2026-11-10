@@ -1,0 +1,198 @@
+\documentclass[tikz,border=4pt]{standalone}
+% Colours.  ink = tree/branch colour, acc = life-form colour.
+% One palette for every background.  ink is a mid-dark green: contrast ratio about 2.7:1
+% on a dark tab strip (#202124), 6:1 on white, and 1.8:1 against acc, so the branches stay
+% readable on both and still stand apart from the objects.
+\definecolor{ink}{HTML}{16723A}
+\definecolor{acc}{HTML}{16A34A}
+\tikzset{
+  glyph/.style={fill=acc,draw=none},
+  glyphl/.style={draw=acc,line width=1.1pt,line cap=round},
+}
+
+%% ================= temporal radial tree =================
+% radius = time since LUCA (centre).  All tips sit on the same circle (today).
+% \split{parent r}{angle1}{r1}{angle2}{r2}: arc at the parent's radius, then radial branches.
+\newcommand{\split}[5]{%
+  \draw (#2:#1) arc[start angle=#2,end angle=#4,radius=#1];
+  \draw (#2:#1) -- (#2:#3);
+  \draw (#4:#1) -- (#4:#5);}
+
+% 7 tips. Bacteria split first (right after LUCA); then plants, then fungi, then
+% jellyfish, then fish; robot and glider branch off last (short, recent twigs).
+% Tips are every 360/7 deg; internal nodes sit at the mean angle of their children.
+% Leaf order around the circle: bacteria, seedling, jellyfish, robot, glider, fish, mushroom
+\newcommand{\treeSeven}[2]{% R (tip radius), node-dot radius
+  \pgfmathsetmacro{\rrA}{0.30*#1}\pgfmathsetmacro{\rrB}{0.50*#1}
+  \pgfmathsetmacro{\rrC}{0.66*#1}\pgfmathsetmacro{\rrD}{0.78*#1}
+  \pgfmathsetmacro{\rrE}{0.88*#1}
+  \draw (0,0) -- (0:#1);                              % bacteria: first branch off LUCA
+  \draw (0,0) -- (143.04:\rrA);                       % everything else
+  \split{\rrA}{51.43}{#1}{234.64}{\rrB}               % seedling | (fungi+animals)
+  \split{\rrB}{160.72}{\rrC}{308.57}{#1}              % animals | mushroom
+  \split{\rrC}{102.86}{#1}{218.57}{\rrD}              % jellyfish | (fish + artificial)
+  \split{\rrD}{180}{\rrE}{257.14}{#1}                 % artificial | fish
+  \split{\rrE}{154.29}{#1}{205.71}{#1}                % robot | glider
+  \pgfmathsetmacro{\rrR}{2.2*#2}
+  \fill[acc] (0,0) circle (\rrR);                      % LUCA, the centre
+  \fill (143.04:\rrA) circle (#2) (234.64:\rrB) circle (#2)
+        (160.72:\rrC) circle (#2) (218.57:\rrD) circle (#2) (180:\rrE) circle (#2);}
+
+% 7 tips for tiny sizes: same order, but only 3 rings so that the arcs stay resolvable.
+% Splits that are close together in \treeSeven are merged (jellyfish/fish/robot/glider
+% branch from shared nodes), which keeps the order bacteria < plants < mushroom < the rest.
+\newcommand{\treeSevenS}[2]{% R (tip radius), LUCA-dot radius
+  \pgfmathsetmacro{\rrA}{0.42*#1}\pgfmathsetmacro{\rrB}{0.68*#1}\pgfmathsetmacro{\rrD}{0.90*#1}
+  \draw (0,0) -- (0:#1);                              % bacteria
+  \draw (0,0) -- (128.57:\rrA);
+  \split{\rrA}{51.43}{#1}{205.71}{\rrB}               % plants | rest
+  \split{\rrB}{102.86}{#1}{308.57}{#1}                % jellyfish | ... | mushroom
+  \draw (205.71:\rrB) -- (205.71:\rrD);
+  \draw (154.29:\rrD) arc[start angle=154.29,end angle=257.14,radius=\rrD];
+  \draw (154.29:\rrD) -- (154.29:#1) (205.71:\rrD) -- (205.71:#1) (257.14:\rrD) -- (257.14:#1);
+  \fill[acc] (0,0) circle (#2);}
+
+% 4 tips, same logic, for tiny sizes: bacteria | plants | animals | artificial
+\newcommand{\treeFour}[2]{%
+  \pgfmathsetmacro{\rrA}{0.32*#1}\pgfmathsetmacro{\rrB}{0.68*#1}
+  \draw (0,0) -- (0:#1);
+  \draw (0,0) -- (157.5:\rrA);
+  \split{\rrA}{90}{#1}{225}{\rrB}
+  \split{\rrB}{180}{#1}{270}{#1}
+  \pgfmathsetmacro{\rrR}{2.2*#2}
+  \fill[acc] (0,0) circle (\rrR);                      % LUCA, the centre
+  \fill (157.5:\rrA) circle (#2) (225:\rrB) circle (#2);}
+
+%% ================= detailed life forms (unit box, centred) =================
+\newcommand{\gFish}{%
+  \fill[glyph,even odd rule] (-0.45,0) .. controls (-0.25,0.3) and (0.1,0.3) .. (0.25,0)
+                         .. controls (0.1,-0.3) and (-0.25,-0.3) .. (-0.45,0)
+                         (-0.3,0.06) circle (0.045);          % eye = hole
+  \fill[glyph] (0.2,0) -- (0.5,0.24) -- (0.5,-0.24) -- cycle;}
+\newcommand{\gJelly}{%
+  \fill[glyph] (-0.36,0.05) arc[start angle=180,end angle=0,radius=0.36] -- cycle;
+  % centre tentacle = continuation of the branch (anchor at its tip, (0,-0.46))
+  \draw[glyphl] (0,0.05) .. controls (0.09,-0.1) and (-0.09,-0.3) .. (0,-0.46);
+  % outer tentacles splay out and end free
+  \foreach \x/\ex/\ey in {-0.13/-0.24/-0.26,0.13/0.24/-0.26,-0.27/-0.5/-0.4,0.27/0.5/-0.4}{
+    \draw[glyphl] (\x,0.05) .. controls (\x*1.5,-0.1) and (\ex*0.8,\ey+0.2) .. (\ex,\ey);}}
+\newcommand{\gLeaf}{%
+  \draw[glyphl,line width=1.4pt] (0,-0.45) -- (0,0.05);
+  \fill[glyph] (0,0) .. controls (-0.08,0.28) and (-0.3,0.34) .. (-0.46,0.3)
+                     .. controls (-0.42,0.02) and (-0.22,-0.06) .. (0,0);
+  \fill[glyph] (0,0.12) .. controls (0.1,0.42) and (0.32,0.5) .. (0.46,0.46)
+                        .. controls (0.42,0.16) and (0.22,0.06) .. (0,0.12);}
+\newcommand{\gMush}{%
+  \fill[glyph,even odd rule] (-0.44,-0.04) arc[start angle=180,end angle=0,radius=0.44] -- cycle
+      (-0.2,0.14) circle (0.06) (0.1,0.24) circle (0.05) (0.24,0.1) circle (0.04);  % spots = holes
+  \fill[glyph,rounded corners=1pt] (-0.12,-0.04) rectangle (0.12,-0.44);}
+\newcommand{\gBeetle}{%
+  \fill[glyph] (0,-0.06) ellipse (0.26 and 0.34);
+  \fill[glyph] (0,0.34) circle (0.11);
+  \foreach \y/\dy in {0.12/0.1,-0.05/0,-0.22/-0.1}{
+    \draw[glyphl] (-0.24,\y) -- (-0.46,\y+\dy+0.04);
+    \draw[glyphl] ( 0.24,\y) -- ( 0.46,\y+\dy+0.04);}
+  \draw[glyphl,line width=0.8pt] (-0.04,0.43) -- (-0.14,0.5) (0.04,0.43) -- (0.14,0.5);
+  \draw[white,line width=0.9pt] (0,0.26) -- (0,-0.38);}
+\newcommand{\gBact}{%
+  \fill[glyph,even odd rule,rounded corners=0.14cm] (-0.1,-0.15) rectangle (0.46,0.15)
+      [sharp corners] (0.08,0) circle (0.04) (0.26,0.02) circle (0.04);   % eyes = holes
+  \draw[glyphl] (-0.1,0) .. controls (-0.2,0.2) and (-0.32,-0.2) .. (-0.46,0);}
+\newcommand{\gRobot}{%
+  \fill[glyph,even odd rule,rounded corners=2pt] (-0.3,-0.18) rectangle (0.3,0.26)
+      [sharp corners] (-0.19,0.04) rectangle (-0.06,0.16) (0.06,0.04) rectangle (0.19,0.16)
+      (-0.14,-0.1) rectangle (0.14,-0.06);                                  % eyes, mouth = holes
+  \draw[glyphl] (0,0.26) -- (0,0.4);
+  \fill[glyph] (0,0.43) circle (0.065);
+  \fill[glyph] (-0.38,-0.06) rectangle (-0.3,0.1) (0.3,-0.06) rectangle (0.38,0.1);
+  \fill[glyph,rounded corners=1.5pt] (-0.22,-0.46) rectangle (0.22,-0.24);}
+\newcommand{\gGlider}{%
+  \foreach \xc/\yr in {1/2,2/1,0/0,1/0,2/0}{
+    \fill[glyph] (\xc*0.31-0.46,\yr*0.31-0.46) rectangle ++(0.26,0.26);}}
+
+\newcommand{\gNet}{%
+  \foreach \y in {-0.32,0,0.32}{\foreach \z in {-0.16,0.16}{
+    \draw[glyphl,line width=0.7pt] (-0.3,\y) -- (0.3,\z);}}
+  \foreach \y in {-0.32,0,0.32}{\fill[glyph] (-0.3,\y) circle (0.09);}
+  \foreach \z in {-0.16,0.16}{\fill[glyph] (0.3,\z) circle (0.09);}}
+
+%% ================= abstract shapes: edge count = age =================
+% Branching order (oldest first): LUCA (circle, 0 edges) - bacteria (capsule) - plants
+% (lens, 2 curved edges) - fungi (triangle) - jellyfish (square) - fish (pentagon) -
+% robot + glider (hexagon; sister tips = same age = same shape).
+% Each shape is drawn in a local frame: origin = attachment point (a vertex), +y = outward.
+\newcommand{\aBact}{\fill[glyph] (-0.23,0.23) arc[start angle=180,end angle=360,radius=0.23]
+  -- (0.23,0.77) arc[start angle=0,end angle=180,radius=0.23] -- cycle;}
+\newcommand{\aLeaf}{\fill[glyph] (0,0) .. controls (0.42,0.12) and (0.42,0.88) .. (0,1)
+  .. controls (-0.42,0.88) and (-0.42,0.12) .. (0,0);}
+% regular n-gon of circumradius 0.5, one vertex on the origin, pointing inwards
+\newcommand{\pn}[1]{\fill[glyph] (0,0) \foreach \k in {1,...,#1}{
+  -- ({0.5*sin(\k*360/#1)},{0.5-0.5*cos(\k*360/#1)}) } -- cycle;}
+\newcommand{\aTri}{\pn{3}}\newcommand{\aSqu}{\pn{4}}
+\newcommand{\aPen}{\pn{5}}\newcommand{\aHex}{\pn{6}}
+
+%% ================= how glyphs are attached to the branch tips =================
+% \anch{name}{ax}{ay}{rot}{scale}: draw glyph \g<name> with its anchor point (ax,ay)
+% moved onto the origin, rotated by rot degrees about that point, then scaled.
+\newcommand{\anch}[5]{\begin{scope}[rotate=#4,scale=#5,shift={(-#2,-#3)}]\csname g#1\endcsname\end{scope}}
+% \tipat{a}{R}{body}: origin = branch tip (tree angle a, radius R), y-axis = radially outwards,
+% so that whatever #3 draws grows out of the end of the line.
+% (The drawing is mirrored vertically and rotated by \aoff, so global angle = -(a+aoff).)
+\newcommand{\tipat}[3]{%
+  \pgfmathsetmacro{\tipang}{-(#1+\aoff)}\pgfmathsetmacro{\tiprot}{\tipang-90}%
+  \begin{scope}[shift={(\tipang:#2)},rotate=\tiprot]#3\end{scope}}
+
+%% ================= three resolutions =================
+\newcommand{\aoff}{270}   % global rotation of the whole drawing (deg)
+
+% A: >= 128 px   7 detailed life forms, each attached by a natural "root":
+%    flagellum, stem, centre tentacle, stem, tail; robot and glider hang from their top.
+\newcommand{\VA}{%
+  \begin{scope}[yscale=-1,rotate=\aoff,color=ink,line width=2pt,line cap=round]
+    \treeSeven{2.5}{0.07}
+  \end{scope}
+  \tipat{0}{2.5}{\anch{Bact}{-0.46}{0}{90}{1.3}}
+  \tipat{51.43}{2.5}{\anch{Leaf}{0}{-0.45}{0}{1.3}}
+  \tipat{102.86}{2.5}{\anch{Jelly}{0}{-0.46}{0}{1.3}}
+  \tipat{154.29}{2.5}{\anch{Robot}{0}{0.495}{180}{1.3}}
+  \tipat{205.71}{2.5}{\anch{Glider}{-0.02}{0.42}{180}{1.3}}
+  \tipat{257.14}{2.5}{\anch{Fish}{0.5}{0}{-90}{1.3}}
+  \tipat{308.57}{2.5}{\anch{Mush}{0}{-0.44}{0}{1.3}}}
+
+% B: 32-64 px   same tree, abstract shapes, heavier strokes
+\newcommand{\VB}{%
+  \begin{scope}[yscale=-1,rotate=\aoff,color=ink,line width=6.5pt,line cap=round]
+    \treeSeven{2.4}{0.15}
+  \end{scope}
+  \foreach \a/\g in {0/Bact,51.43/Leaf,102.86/Squ,154.29/Hex,
+                     205.71/Hex,257.14/Pen,308.57/Tri}{
+    \tipat{\a}{2.4}{\begin{scope}[scale=1.35]\csname a\g\endcsname\end{scope}}}}
+
+% C: <= 24 px   collapsed to 4 tips: bacteria | plants | animals | artificial
+\newcommand{\VC}{%
+  \begin{scope}[yscale=-1,rotate=\aoff,color=ink,line width=11pt,line cap=round]
+    \treeFour{2.1}{0.2}
+  \end{scope}
+  \foreach \a/\g in {0/Bact,90/Leaf,270/Tri,180/Squ}{
+    \tipat{\a}{2.1}{\begin{scope}[scale=1.65]\csname a\g\endcsname\end{scope}}}}
+
+% D: <= 24 px   all 7 tips kept; objects reduced to plain dots, thin branches
+\newcommand{\VD}{%
+  \begin{scope}[yscale=-1,rotate=\aoff,color=ink,line width=8pt,line cap=round]
+    \treeSevenS{2.55}{0.42}
+  \end{scope}
+  \foreach \a in {0,51.43,102.86,154.29,205.71,257.14,308.57}{
+    \tipat{\a}{2.55}{\fill[glyph] (0,0.48) circle (0.56);}}}
+
+\begin{document}
+\begin{tikzpicture}
+\ifdefined\variant
+  \path[use as bounding box] (-3.9,-3.9) rectangle (3.9,3.9);
+  \csname V\variant\endcsname
+\else
+  \begin{scope}\VA\end{scope}
+  \begin{scope}[xshift=8.5cm]\VB\end{scope}
+  \begin{scope}[xshift=17cm]\VC\end{scope}
+\fi
+\end{tikzpicture}
+\end{document}

@@ -220,7 +220,7 @@ then
   echo "Compiling for '$lang' [$lg] language"
   echo
 
-  for f in {cv,publications}
+  for f in {cv,cv-teaching,publications}
   do
     pdfcompile $f
     biber --quiet $f 2> >(grep -v "Use of uninitialized value")
