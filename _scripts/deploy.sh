@@ -11,6 +11,8 @@ scripts=$(dirname $0)
 source $scripts/common.sh
 date > $log
 
+ruby -v | awk '{print $2}' | cut -d p -f1 > .ruby-version
+
 $scripts/build.sh | sed 's/^/> /' || exit 1
 $scripts/proof.sh | sed 's/^/> /' || exit 2
 $scripts/clean.sh | sed 's/^/> /' || exit 3
