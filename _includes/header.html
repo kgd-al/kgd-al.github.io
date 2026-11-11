@@ -17,7 +17,10 @@
 
 
     <div class="site-title-div">
-      <a class="site-title" rel="author" href="{{ "/" | relative_url }}">{{ site.title | escape }}</a>
+      <a class="site-title" rel="author" href="{{ "/" | relative_url }}">
+        <img class="site-logo" src="{{ '/logo/logo_medium.svg' | relative_url }}" alt="">
+        <span>{{ site.title | escape }}</span>
+      </a>
       <span class="site-title-spacer"></span>
       <span class="site-description"><em>
        {{ site.description }}

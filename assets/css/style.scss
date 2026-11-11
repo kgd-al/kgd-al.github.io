@@ -7,21 +7,16 @@
   "minima/skins/{{ site.minima.skin | default: 'auto' }}",
   "minima/initialize";
 
-// .site-title::before {
-// 	content: url("/logo/logo_medium.svg");
-// 	display: inline-block;
-// 	position: relative;
-//     // background-size: cover;
-//     // background-repeat: no-repeat;
-//     // max-width: 100%;
-// 	width: 32px;
-//     // height: auto;
-// 	top: 7px;
-//     // margin-right: 8px;
-//   width:  100%;
-//   height: 100%;
-//   fill:   blue;
-// }
+.site-title {
+  display: inline-flex;     // logo and text on one line, vertically centred
+  align-items: center;
+  gap: 0.4em;
+}
+
+.site-logo {
+  height: 1.3em;            // scales with the title's font size
+  width: auto;              // keeps the aspect ratio
+}
 
 // Monospace font
 header {
